@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button  defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title> My Team Interactions</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-datetime
+      displayFormat="DD/MM/YYYY"
+      [(ngModel)]="selectedDate"
+      (ionChange)="dateChanged($event)">
+    </ion-datetime>
+  <ion-segment value="buttons" mode="ios">
+    <ion-segment-button value="default">
+      <ion-label>Planned/Missed</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="segment">
+      <ion-label>Done</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ion-card *ngFor="let item of results" >
+    <ion-grid>
+      <ion-row>
+        <ion-col size="8" class="content-css">
+           <p>{{item.clientName}} ( {{item.id}} )</p>
+           <p>Avani <ion-badge slot="end" color="danger">Calls</ion-badge></p>
+           <p style="color: rgb(105, 219, 105);">{{item.id}},  {{item.date}} </p>
+        </ion-col>
+        <ion-col size="4">
+          <ion-icon name="call" class="icon"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+ 
+  
+</ion-content>

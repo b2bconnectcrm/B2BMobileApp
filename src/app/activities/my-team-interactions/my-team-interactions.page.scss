@@ -1,0 +1,66 @@
+ion-card {
+    margin: 16px;
+  }
+  
+  ion-card-content {
+    padding-right: 0;  // Adjust padding to suit your layout
+    word-wrap: break-word;
+  }
+  
+  ion-icon {
+    font-size: 32px;  // Adjust the size as needed
+    color: #3880ff;  // Adjust the color as needed
+  }
+
+  
+  .clear-icon {
+    font-size: 32px;  // Adjust the size as needed
+    color: #3880ff;  // Adjust the color as needed
+  }
+  
+  .ion-padding{
+      padding: 4px;
+  }
+
+  ion-segment-button {
+    --indicator-color: #08a391;
+  }
+  
+  /* Material Design styles */
+  ion-segment-button.md {
+    --color: #000;
+    --color-checked: #08a391;
+    --indicator-height: 4px;
+  }
+  
+  /* iOS styles */
+  ion-segment-button.ios {
+    --color: #08a391;
+    --color-checked: #fff;
+    --border-radius: 20px;
+  }
+
+  //@at-root
+
+  .block {
+    background-color: #3880ff;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .block.checked {
+    background-color: #32db64; /* Change to indicate checked state */
+  }
+  
+  ion-col:not(:last-child) .separator {
+    display: block;
+  }
+  
+  ion-col:last-child .separator {
+    display: none;
+  }

@@ -1,0 +1,126 @@
+ion-card {
+    margin: 16px;
+  }
+  
+  ion-card-content {
+    padding-right: 0;  // Adjust padding to suit your layout
+    word-wrap: break-word;
+  }
+  
+  ion-icon {
+    font-size: 30px;  // Adjust the size as needed
+    color: #3880ff;  // Adjust the color as needed
+  }
+
+  
+  .clear-icon {
+    font-size: 32px;  // Adjust the size as needed
+    color: #3880ff;  // Adjust the color as needed
+  }
+  
+  .ion-padding{
+      padding: 4px;
+  }
+  .my-divider {
+    height: 1px;
+    background: #ccc;
+  }
+
+  // css for radio group
+  ion-radio::part(container) {
+    width: 30px;
+    height: 30px;
+  
+    border-radius: 8px;
+    border: 2px solid #ddd;
+  }
+  
+  ion-radio::part(mark) {
+    background: none;
+    transition: none;
+    transform: none;
+    border-radius: 0;
+  }
+  
+  ion-radio.radio-checked::part(container) {
+    background: #6815ec;
+    border-color: transparent;
+    padding-right: 10px;
+  }
+  
+  ion-radio.radio-checked::part(mark) {
+    width: 6px;
+    height: 10px;
+  
+    border-width: 0px 2px 2px 0px;
+    border-style: solid;
+    border-color: #fff;
+  
+    transform: rotate(45deg);
+  }
+  
+// css
+  
+  .block {
+    background-color: #3880ff;
+    color: white;
+    width: 120px;
+    height: 80px;
+    text-align: center;
+    padding: 20px;
+    margin: 10px;
+
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .block.checked {
+    background-color: #32db64; /* Change to indicate checked state */
+  }
+  
+  ion-col:not(:last-child) .separator {
+    display: block;
+  }
+  
+  ion-col:last-child .separator {
+    display: none;
+  }
+
+
+  .cslblock {
+    background-color: #3880ff;
+    color: white;
+    width: 100px;
+    height: 60px;
+    text-align: center;
+    padding: 20px;
+    margin: 10px;
+
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .cslblock.checked {
+    background-color: #32db64; /* Change to indicate checked state */
+  }
+  
+
+  .cblock {
+    background-color: #3880ff;
+    color: white;
+    width: 100px;
+    height: 60px;
+    text-align: center;
+    padding: 20px;
+    margin: 10px;
+
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .cblock.checked {
+    background-color: #32db64; /* Change to indicate checked state */
+  }

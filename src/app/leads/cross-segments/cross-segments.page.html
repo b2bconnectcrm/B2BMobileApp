@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button  defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Cross Segments</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let icon of crossSegments">
+        <div style="text-align: center;">
+          <ion-icon [name]="icon.name" class="icon"></ion-icon>
+          <p>{{ icon.label }}</p>
+        </div>
+       
+      </ion-col>
+    </ion-row>
+    <ion-button expand="block" size="small" color="success" (click)="gotoHomePage()">Submit</ion-button>
+  </ion-grid>
+  
+</ion-content>

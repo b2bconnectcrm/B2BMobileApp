@@ -1,0 +1,117 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Intractions</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3" *ngFor="let icon of intractions">
+            <ion-icon routerDirection="root" [routerLink]="[icon?.url]" lines="none" detail="false" routerLinkActive="selected" [name]="icon.name" class="icon"></ion-icon>
+            <p class="icon-name">{{ icon.label }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+  <ion-card-header>
+      <ion-card-title>Leads</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3" *ngFor="let icon of leads">
+            <ion-icon   routerDirection="root" [routerLink]="[icon?.url]" lines="none" detail="false" routerLinkActive="selected"  [name]="icon.name" class="icon"></ion-icon>
+            <p class="icon-name">{{ icon.label }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+  <ion-card-header>
+      <ion-card-title>Calling</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3">
+            <ion-icon  name="call" class="icon" (click)="openDialPad('+1234567890')"></ion-icon>
+            <p class="icon-name">Cold Call</p>
+          </ion-col>
+          <ion-col size="3">
+            <ion-icon  name="star" class="icon" (click)="openDialPad('+1234567890')"></ion-icon>
+            <p class="icon-name">Cold Meeting</p>
+          </ion-col>
+          <ion-col size="3" *ngFor="let call of calling">
+            <ion-icon  routerDirection="root" [routerLink]="[call.url]" lines="none" detail="false" routerLinkActive="selected" [name]="call.name" class="icon"></ion-icon>
+            <p class="icon-name">{{call.label}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Activities</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3" *ngFor="let icon of activities">
+            <ion-icon  routerDirection="root" [routerLink]="[icon?.url]" lines="none" detail="false" routerLinkActive="selected"  [name]="icon.name" class="icon"></ion-icon>
+            <p class="icon-name">{{ icon.label }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Projects</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3" *ngFor="let icon of projects">
+            <ion-icon  routerDirection="root" [routerLink]="[icon?.url]" lines="none" detail="false" routerLinkActive="selected"  [name]="icon.name" class="icon"></ion-icon>
+            <p class="icon-name">{{ icon.label }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Channel Partners</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3" *ngFor="let icon of channelPartners">
+            <ion-icon  routerDirection="root" [routerLink]="[icon?.url]" lines="none" detail="false" routerLinkActive="selected"   [name]="icon.name" class="icon"></ion-icon>
+            <p class="icon-name">{{ icon.label }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

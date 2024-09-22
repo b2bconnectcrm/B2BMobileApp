@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>OTP Verification</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="otp-container">
+    <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
+      <div class="middle-display-otp">
+        <ng-otp-input  (onInputChange)="onOtpChange($event)"  [config]="{length:6, allowNumbersOnly: true}"></ng-otp-input>
+      </div>
+     
+      <!-- <ion-item>
+        <ion-label position="floating">Enter OTP</ion-label>
+        <ion-input
+          type="text"
+          formControlName="otp"
+          max="6"
+          required>
+        </ion-input>
+      </ion-item> 
+      <ion-text color="danger" *ngIf="otp?.hasError('required') && otp?.touched">
+        OTP is required
+      </ion-text>
+      <ion-text color="danger" *ngIf="otp?.hasError('pattern') && otp?.touched">
+        Enter a valid 6-digit OTP
+      </ion-text>-->
+      <div class="right-side-link">
+        <a href="#">Resend OTP</a>
+      </div>
+     
+      <ion-button expand="block" type="submit" [disabled]="otpForm.invalid">Verify OTP</ion-button>
+    </form>
+  </div>
+</ion-content>

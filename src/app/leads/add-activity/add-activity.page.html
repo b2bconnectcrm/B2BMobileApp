@@ -1,0 +1,249 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/view-lead-details"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Activity</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          I Have Done
+        </ion-label>
+      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" size-md="3">
+            <div class="block" [class.checked]="block1Checked" (click)="toggleBlock(1)">
+              Video Call
+              <ion-checkbox [(ngModel)]="block1Checked" style="display: none;"></ion-checkbox>
+            </div>
+          </ion-col>
+          <ion-col size="6" size-md="3">
+            <div class="block" [class.checked]="block2Checked" (click)="toggleBlock(2)">
+              F2F
+              <ion-checkbox [(ngModel)]="block2Checked" style="display: none;"></ion-checkbox>
+            </div>
+          </ion-col>
+          <ion-col size="6" size-md="3">
+            <div class="block" [class.checked]="block3Checked" (click)="toggleBlock(3)">
+              Site Visit
+              <ion-checkbox [(ngModel)]="block3Checked" style="display: none;"></ion-checkbox>
+            </div>
+          </ion-col>
+          <ion-col size="6" size-md="3">
+            <div class="block" [class.checked]="block4Checked" (click)="toggleBlock(4)">
+              Clouser Meeting
+              <ion-checkbox [(ngModel)]="block4Checked" style="display: none;"></ion-checkbox>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          Interested Projects
+        </ion-label>
+      </ion-item>
+        <ion-searchbar  placeholder="Search by project" [debounce]="1000" (ionInput)="handleInput($event)"></ion-searchbar>
+        {{results[0]?.propertyName}}
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          Client Is
+        </ion-label>
+      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" size-md="3">
+            <div class="cblock" [class.checked]="block1Checked" (click)="toggleBlock(1)">
+              Hot
+              <ion-checkbox [(ngModel)]="block1Checked" style="display: none;"></ion-checkbox>
+            </div>
+          </ion-col>
+          <ion-col size="6" size-md="3">
+            <div class="cblock" [class.checked]="block2Checked" (click)="toggleBlock(2)">
+              Warm
+              <ion-checkbox [(ngModel)]="block2Checked" style="display: none;"></ion-checkbox>
+            </div>
+          </ion-col>
+          <ion-col size="6" size-md="3">
+            <div class="cblock" [class.checked]="block3Checked" (click)="toggleBlock(3)">
+              Cold
+              <ion-checkbox [(ngModel)]="block3Checked" style="display: none;"></ion-checkbox>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          Plan to do
+        </ion-label>
+      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" size-md="3">
+            <div class="block" [class.checked]="block1Checked" (click)="toggleBlock(1)">
+              F2F
+              <ion-checkbox [(ngModel)]="block1Checked" style="display: none;"></ion-checkbox>
+            </div>
+          </ion-col>
+          <ion-col size="6" size-md="3">
+            <div class="block" [class.checked]="block2Checked" (click)="toggleBlock(2)">
+              Calls
+              <ion-checkbox [(ngModel)]="block2Checked" style="display: none;"></ion-checkbox>
+            </div>
+          </ion-col>
+          <ion-col size="6" size-md="3">
+            <div class="block" [class.checked]="block3Checked" (click)="toggleBlock(3)">
+              Site Visit
+              <ion-checkbox [(ngModel)]="block3Checked" style="display: none;"></ion-checkbox>
+            </div>
+          </ion-col>
+          <ion-col size="6" size-md="3">
+            <div class="block" [class.checked]="block4Checked" (click)="toggleBlock(4)">
+              Clouser Meeting
+              <ion-checkbox [(ngModel)]="block4Checked" style="display: none;"></ion-checkbox>
+            </div>
+          </ion-col>
+         
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+         When
+        </ion-label>
+      </ion-item>
+      <ion-row class="ion-padding">
+        <ion-col size="4">
+          <ion-input
+      readonly
+      placeholder="Select Time"
+      (click)="openTimePicker()"
+      [value]="selectedTime ? (selectedTime | date: 'shortTime') : ''">
+    </ion-input>
+        </ion-col>
+        <ion-col size="4">
+          <ion-input
+          readonly
+          placeholder="DD/MM/YYYY"
+          (click)="openDatePicker()"
+          [value]="selectedDate | date: 'dd/MM/yyyy'">
+        </ion-input>
+        </ion-col>
+        <ion-col size="4">
+          <ion-icon  class="clear-icon" (click)="clearDate()" color="danger" name="close-circle-outline"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-modal [isOpen]="isTimePickerOpen" (ionModalDidDismiss)="closeTimePicker()">
+        <ng-template>
+          <ion-content>
+            <ion-datetime
+              presentation="time"
+              [(ngModel)]="selectedTime"
+              (ionChange)="timeChanged($event)">
+            </ion-datetime>
+            <ion-button (click)="closeTimePicker()">Done</ion-button>
+            <ion-button color="danger" (click)="clearTime()">Clear</ion-button>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+      <ion-modal [isOpen]="isDatePickerOpen" (didDismiss)="closeDatePicker()">
+        <ng-template>
+          <ion-content>
+            <ion-datetime
+              displayFormat="DD/MM/YYYY"
+              [(ngModel)]="selectedDate"
+              (ionChange)="dateChanged($event)">
+            </ion-datetime>
+            <ion-button (click)="closeDatePicker()">Done</ion-button>
+            <ion-button  color="danger" (click)="closeDatePicker()">Cancel</ion-button>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          Joint Meeting With 
+        </ion-label>
+      </ion-item>
+        <ion-searchbar  placeholder="Search Employee" [debounce]="1000" (ionInput)="searchEmpoyee($event)"></ion-searchbar>
+        {{results[0]?.clientName}}
+    </ion-card-content>
+  </ion-card>
+  <!-- <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          Cross Segment Leads
+        </ion-label>
+      </ion-item>
+    <ion-radio-group value="custom-checked">
+      <ion-radio value="custom" style="margin-right: 20px;" aria-label="Custom checkbox">Yes</ion-radio>
+      <ion-radio value="custom-checked" aria-label="Custom checkbox that is checked">NO</ion-radio>
+    </ion-radio-group>
+    </ion-card-content>
+  </ion-card> -->
+
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          Cross Segment Leads
+        </ion-label>
+      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" size-md="3">
+            <div class="cslblock" [class.checked]="block1Checked" (click)="toggleBlock(1)">
+              Yes
+              <ion-checkbox [(ngModel)]="block1Checked" style="display: none;"></ion-checkbox>
+            </div>
+          </ion-col>
+          <ion-col size="6" size-md="3">
+            <div class="cslblock" [class.checked]="block2Checked" (click)="toggleBlock(2)">
+             No
+              <ion-checkbox [(ngModel)]="block2Checked" style="display: none;"></ion-checkbox>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          Comments (max 500 chars)
+        </ion-label>
+      </ion-item>
+      <ion-textarea rows="5" placeholder=" type here"></ion-textarea>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

@@ -1,0 +1,23 @@
+ion-card {
+    margin: 16px;
+  }
+  
+  ion-card-content {
+    padding-right: 0;  // Adjust padding to suit your layout
+    word-wrap: break-word;
+  }
+  
+  ion-icon {
+    font-size: 48px;  // Adjust the size as needed
+    color: #3880ff;  // Adjust the color as needed
+  }
+
+  
+  .clear-icon {
+    font-size: 32px;  // Adjust the size as needed
+    color: #3880ff;  // Adjust the color as needed
+  }
+  
+  .ion-padding{
+      padding: 4px;
+  }

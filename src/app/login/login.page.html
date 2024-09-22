@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label position="floating">User Name</ion-label>
+        <ion-input
+          type="tel"
+          formControlName="username"
+          required>
+        </ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="username?.hasError('required') && username?.touched">
+        UserName is required
+      </ion-text>
+     
+      <ion-item>
+        <ion-label position="floating">Mobile Number</ion-label>
+        <ion-input
+          type="tel"
+          formControlName="mobile"
+          maxlength="10"
+          required>
+        </ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="mobile?.hasError('required') && mobile?.touched">
+        Mobile number is required
+      </ion-text>
+      <ion-text color="danger" *ngIf="mobile?.hasError('pattern') && mobile?.touched">
+        Enter a valid mobile number
+      </ion-text> 
+      
+      <ion-button expand="block" type="submit" [disabled]="loginForm.invalid">Login</ion-button>
+    </form>
+  </div>
+</ion-content>

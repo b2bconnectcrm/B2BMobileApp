@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Lead Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-card *ngFor="let item of results">
+    <ion-grid>
+      <p>
+        <ion-badge slot="start" color="success">Cold</ion-badge> Lead ID: {{item.id}}
+      </p>
+      <ion-row>
+        <ion-col size="6" class="content-css">
+          <p> {{item.clientName}} </p>
+          <p style="color: rgb(105, 219, 105);"> {{item.propertyName}} </p>
+        </ion-col>
+        <ion-col size="6" class="sub-content-css">
+          <p>source by cold calling</p>
+          <p> {{item.date}} </p>
+        </ion-col>
+      </ion-row>
+      <hr class="my-divider">
+    </ion-grid>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="3" *ngFor="let icon of intractions">
+          <ion-icon [name]="icon.name" class="icon"></ion-icon>
+          <p class="icon-name sub-content-css">{{ icon.label }}</p>
+        </ion-col>
+      </ion-row>
+      <hr class="my-divider">
+      <ion-button expand="block" size="small" color="success" (click)="gotoActivityPage()">+ Add Activity</ion-button>
+    </ion-grid>
+  </ion-card>
+  <ion-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-card-content>
+            <h2>Details</h2>
+            <p class="sub-content-css">Assigned To: Gokul</p>
+            <p class="sub-content-css">
+              Name: Gowri
+            </p>
+            <p class="sub-content-css">
+              Email: tets23232323232gmail.com
+            </p>
+            <p class="sub-content-css">
+              Project: Lake view
+            </p>
+            <p class="sub-content-css">
+              City: HYD </p>
+            <p class="sub-content-css">
+              Address: ameenpur </p>
+            <p class="sub-content-css">
+              Budget: N/A
+            </p>
+          </ion-card-content>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  <ion-card>
+        <ion-card-content>
+          <p>Note Is Marked Pending  <ion-badge slot="end" color="secondary">Mark Complete</ion-badge></p>
+          <ion-textarea class="sub-content-css" placeholder="Add Task  here"></ion-textarea>
+        </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <p>History</p>
+      <ion-textarea class="sub-content-css" placeholder="Add History  here"></ion-textarea>
+    </ion-card-content>
+</ion-card>
+
+</ion-content>

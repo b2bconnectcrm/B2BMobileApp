@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button  defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title> My Team</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let item of results" >
+    <ion-grid>
+      <ion-row>
+        <ion-col size="10" class="content-css">
+           <p>Name:  {{item.clientName}}( {{item.id}} )</p>
+           <p>PL</p>
+           <p style="color: rgb(105, 219, 105);"> {{item.propertyName}} </p>
+        </ion-col>
+        <ion-col size="2" class="sub-content-css" style="align-content:center ;" >
+          Level: T1
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</ion-content>
