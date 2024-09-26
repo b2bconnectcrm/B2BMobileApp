@@ -1,11 +1,44 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>Login</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
+
+<ion-content>
+	<form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+		<div class="input-group">
+			<ion-item>
+				<ion-input type="username" placeholder="UserName" formControlName="username"></ion-input>
+			</ion-item>
+      <ion-text  class="errorClass" *ngIf="username?.hasError('required') && username?.touched">
+        <span>UserName is required</span> 
+      </ion-text>		
+			<ion-item>
+				<ion-input type="password" placeholder="password" formControlName="password"></ion-input>
+			</ion-item>
+      <ion-text  class="errorClass" *ngIf="password?.hasError('required') && password?.touched">
+        <span>password is required</span> 
+      </ion-text>      		
+		</div>
+
+		<ion-button type="submit" expand="block" [disabled]="!loginForm.valid">Log in</ion-button>
+		<ion-button type="button" expand="block" color="light" fill="clear"
+			>Not yet a member? Sign up!
+		</ion-button>
+
+		<ion-button type="button" expand="block" color="tertiary">
+			<ion-icon name="logo-google" slot="start"></ion-icon>
+			Sign in with Google
+		</ion-button>
+		<!-- <ion-button type="button" expand="block" color="tertiary">
+			<ion-icon name="logo-apple" slot="start"></ion-icon>
+			Sign in with Apple
+		</ion-button> -->
+	</form>
+</ion-content>
 
 
-<ion-content class="ion-padding">
+<!-- <ion-content class="ion-padding">
   <div class="login-container">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <ion-item>
@@ -21,22 +54,22 @@
       </ion-text>
      
       <ion-item>
-        <ion-label position="floating">Mobile Number</ion-label>
+        <ion-label position="floating">password Number</ion-label>
         <ion-input
           type="tel"
-          formControlName="mobile"
+          formControlName="password"
           maxlength="10"
           required>
         </ion-input>
       </ion-item>
-      <ion-text color="danger" *ngIf="mobile?.hasError('required') && mobile?.touched">
-        Mobile number is required
+      <ion-text color="danger" *ngIf="password?.hasError('required') && password?.touched">
+        password number is required
       </ion-text>
-      <ion-text color="danger" *ngIf="mobile?.hasError('pattern') && mobile?.touched">
-        Enter a valid mobile number
+      <ion-text color="danger" *ngIf="password?.hasError('pattern') && password?.touched">
+        Enter a valid password number
       </ion-text> 
       
       <ion-button expand="block" type="submit" [disabled]="loginForm.invalid">Login</ion-button>
     </form>
   </div>
-</ion-content>
+</ion-content> -->

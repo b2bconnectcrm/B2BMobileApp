@@ -15,18 +15,19 @@ export class LoginPage implements OnInit {
   onSubmit() {
     if (this.loginForm.valid) {
       // Handle login logic here
-      console.log('Mobile:', this.loginForm.value.mobile);
+      console.log('password:', this.loginForm.value.password);
       console.log('username:', this.loginForm.value.username);
       // Navigate to the home page on successful login
-      this.navCtrl.navigateRoot('/otp');
+      // this.navCtrl.navigateRoot('/otp');
+      this.navCtrl.navigateRoot('/home');
     } else {
       // Show validation errors
       this.loginForm.markAllAsTouched();
     }
   }
 
-  get mobile() {
-    return this.loginForm.get('mobile');
+  get password() {
+    return this.loginForm.get('password');
   }
 
   get username() {
@@ -39,7 +40,7 @@ export class LoginPage implements OnInit {
 
   createForm() {
     this.loginForm = this.fb.group({
-      mobile: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]], // 10 digit mobile number validation
+      password: ['', [Validators.required]], // 10 digit password number validation
       username: ['', Validators.required]
     });
   }

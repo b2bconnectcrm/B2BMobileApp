@@ -1,27 +1,28 @@
-.input-margin{
-    margin-bottom: 5rem;
-}
 
-ion-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+  ion-content {
+    --padding-top: 40%;
+    --padding-start: 10%;
+    --padding-end: 10%;
+    --background: url('https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80')
+      0 0/100% 100% no-repeat;
   }
   
-  .login-container {
-    width: 100%;
-    max-width: 400px;
-    padding: 16px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    background-color: #fff;
+  .input-group {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
   }
   
-  ion-item {
-    margin-bottom: 16px;
+  .errors {
+    font-size: small;
+    color: #fff;
+    background: var(--ion-color-danger);
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
-  
-  ion-button {
-    margin-top: 20px;
+  .errorClass {
+    padding-left: 15px;background: var(--ion-color-danger);color: white;display: block;font-size: small;padding-top: 5px;
+    padding-bottom: 5px;
   }

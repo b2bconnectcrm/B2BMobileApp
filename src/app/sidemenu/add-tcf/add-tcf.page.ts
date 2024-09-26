@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-tcf.page.scss'],
 })
 export class AddTcfPage implements OnInit {
-
+  segment: any="currentaddress";
   constructor() { }
 
   ngOnInit() {

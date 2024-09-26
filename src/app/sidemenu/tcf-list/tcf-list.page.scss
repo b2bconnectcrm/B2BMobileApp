@@ -1,0 +1,52 @@
+.buttonPosition {
+    justify-content: center;
+}
+
+.buttonstab {
+    display: grid;
+}
+.ion-padding{
+    padding: 4px;
+}
+.icon-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .icon {
+    font-size: 35px;
+    color: var(--ion-color-primary);
+  }
+  .dateItemList{
+    display: contents;
+  }
+
+  .borderright {
+    border-right: 1px solid gray;
+  }
+.cardborder {
+    border: 1px solid #80808061;
+}
+
+ .namefont{
+    font-size:8px;
+    margin: auto;
+    text-align: center;
+ }
+.valuePosition{
+    font-size:14px !important;
+    margin: auto;
+    text-align: center;
+}
+.colrightvalue{
+    background: #008000b3;
+    color: black;
+    font-weight: bold;
+}
+.colleftvalue{    
+    font-weight: bold;
+}
+.borderbottom {
+    border-bottom: 2px solid gray;
+}

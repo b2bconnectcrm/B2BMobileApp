@@ -1,22 +1,299 @@
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>addTcf</ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>addTcf</ion-title>
+    <ion-title>ADD TCF</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">addTcf</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-accordion-group>
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+        <ion-label>TCT-10201</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-list>
+          <ion-item>
+            <ion-input label="Segment *" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Channel *" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-select label="Currency" label-placement="floating">
+              <ion-select-option value="INR">INR</ion-select-option>
+              <ion-select-option value="USD">USD</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-input type="date" label="Cool of End Date" labelPlacement="floating"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input label="Property" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="date" label="Disclosed Date" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Client access" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Initial payment Verified" labelPlacement="floating"></ion-input>
+          </ion-item>
+        </ion-list>
+        <ion-row class="ion-padding buttonPosition">
+          <ion-button size="small">Save & Next</ion-button>
+        </ion-row>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="second">
+      <ion-item slot="header" color="light">
+        <ion-label>Property Details</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-list>
+          <ion-item>
+            <ion-select label="Property *" label-placement="floating">
+              <ion-select-option value="2BH">2BH</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-select label="Size UOM *" label-placement="floating">
+              <ion-select-option value="SQFT">SQ FT</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Actual Size *" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Tower NO-Unit Number *" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Payment Plan" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="No of parking" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Floor No" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="BPS Total *" labelPlacement="floating"></ion-input>
+          </ion-item>
+        </ion-list>
+        <ion-row class="ion-padding buttonPosition">
+          <ion-button size="small">UPLOAD Documents</ion-button>
+          <ion-button size="small">CREATE HLQ/PLQ</ion-button>
+        </ion-row>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="third">
+      <ion-item slot="header" color="light">
+        <ion-label>Client & Lead Details</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-list>
+          <ion-item>
+            <ion-input label="CMR LEAD ID*" labelPlacement="floating" value="68324549835"></ion-input>
+          </ion-item>
+        </ion-list>
+        <ion-grid>
+          <ion-segment [(ngModel)]="segment">
+            <ion-segment-button value="currentaddress">
+              <ion-label>Current Address</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="permanentaddress">
+              <ion-label>Permanent Address</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-grid>
+        <div [ngSwitch]="segment">
+          <ion-list *ngSwitchCase="'currentaddress'">
+            <ion-item>
+              <ion-input label="Primary Applicant" labelPlacement="floating" value="test"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Phone Number" labelPlacement="floating" value="+94 775 580 646"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Actual Size" labelPlacement="floating" value="35654"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Primary Applicant" labelPlacement="floating" value="test"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Email" labelPlacement="floating" value="info@codecrafts.net"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input labelPlacement="floating" label="Contry" value="Moratuwa"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input labelPlacement="floating" label="State" value="Moratuwa"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input labelPlacement="floating" label="City" value="Moratuwa"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Address" labelPlacement="floating" value="37/6 A"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input labelPlacement="floating" label="ZIPCODE" value="T7969868"></ion-input>
+            </ion-item>
+
+          </ion-list>
+          <ion-list *ngSwitchCase="'permanentaddress'">
+            <ion-item>
+              <ion-checkbox labelPlacement="end">is Permanent address is same as Current address</ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Primary Applicant" labelPlacement="floating" value="test"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Phone Number" labelPlacement="floating" value="+94 775 580 646"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Actual Size" labelPlacement="floating" value="35654"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Email" labelPlacement="floating" value="info@codecrafts.net"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input labelPlacement="floating" label="Contry" value="Moratuwa"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input labelPlacement="floating" label="State" value="Moratuwa"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input labelPlacement="floating" label="City" value="Moratuwa"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Address" labelPlacement="floating" value="37/6 A"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input labelPlacement="floating" label="ZIPCODE" value="T7969868"></ion-input>
+            </ion-item>
+
+          </ion-list>
+        </div>
+        <ion-list>
+          <ion-item>
+            <ion-input label="PAN NO" labelPlacement="floating" value="68324549835"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="DOB" labelPlacement="floating" value="68324549835"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Alternate Mob.NO" labelPlacement="floating" value="68324549835"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-checkbox labelPlacement="end">Home loan Required</ion-checkbox>
+          </ion-item>
+        </ion-list>
+        <ion-row class="ion-padding buttonPosition">
+          <ion-button size="small">UPLOAD Documents</ion-button>
+          <ion-button size="small">Save & NEXT</ion-button>
+        </ion-row>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="fourth">
+      <ion-item slot="header" color="light">
+        <ion-label>Payment & Commision Details</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-list>
+          <ion-item>
+            <ion-input labelPlacement="stacked" label="BSP Adjustment(Amount)">
+              <ion-label slot="start" aria-hidden="true">INR</ion-label>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Client Loyalty Discount" labelPlacement="floating" value="20%"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input labelPlacement="stacked" label="Client Loyalty Discount(Amount)" value="206987">
+              <ion-label slot="start" aria-hidden="true">INR</ion-label>
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input label="Misc Adjustment Notes" labelPlacement="floating" value="20%"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input labelPlacement="stacked" label="Misc Adjustment Notes(Amount)" value="2087">
+              <ion-label slot="start" aria-hidden="true">INR</ion-label>
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="No of parking" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Floor No" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input labelPlacement="stacked" label="TAX Amount" value="20">
+              <ion-label slot="start" aria-hidden="true">INR</ion-label>
+            </ion-input>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="sixth">
+      <ion-item slot="header" color="light">
+        <ion-label>Home Loan Questionnaire</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-list>
+          <ion-item>
+            <ion-input label="ID" labelPlacement="floating" value="7490"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Status" labelPlacement="floating" value="g"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="PLQ Assigned to" labelPlacement="floating" value="20"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="date" label="Client Profile" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Status Updated By" labelPlacement="floating" value="20"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input type="date" label="Status Updated On" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Remarks" labelPlacement="floating" value="20"></ion-input>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="seventh">
+      <ion-item slot="header" color="light">
+        <ion-label>TCS Share</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-list>
+          <ion-item>
+
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="eight">
+      <ion-item slot="header" color="light">
+        <ion-label>Upload Loan Doc Type</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-list>
+          <ion-item>
+
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+
 </ion-content>
