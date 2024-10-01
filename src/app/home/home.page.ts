@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 
 
 @Component({
@@ -57,17 +57,19 @@ export class HomePage implements OnInit {
     { name: 'star', label: 'CP Submitted Leads' , url: '/cp-submitted-leads' },
   ];
   
-  constructor(private platform:Platform) { }
+  constructor(private platform:Platform,private navController:NavController) { }
 
   ngOnInit() {
   }
 
   openDialPad(phoneNumber: string) {
-    if (this.platform.is('capacitor')) {
-      window.open(`tel:${phoneNumber}`, '_system');
-    } else {
-      window.location.href = `tel:${phoneNumber}`;
-    }
+    // if (this.platform.is('capacitor')) {
+    //   window.open(`tel:${phoneNumber}`, '_system');
+    // } else {
+    //   window.location.href = `tel:${phoneNumber}`;
+    // }
+    this.navController.navigateRoot('/cold-call');
+    
   }
 
  

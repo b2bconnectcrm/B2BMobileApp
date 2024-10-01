@@ -7,10 +7,95 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<!-- <ion-content>
   <ion-header>
     <ion-toolbar>
       <ion-title size="large">coldCall</ion-title>
     </ion-toolbar>
   </ion-header>
+</ion-content> -->
+<ion-content>
+  <ion-card >   
+      <ion-row>
+        <ion-col size="12" class="content-css">
+          Name
+        </ion-col>       
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="content-css">
+          Satish
+        </ion-col>       
+      </ion-row>      
+      </ion-card>
+      <ion-card >   
+        <ion-row>
+          <ion-col size="12" class="content-css">
+            Email
+          </ion-col>       
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" class="content-css">
+            dfhskjfhgmail.com
+          </ion-col>       
+        </ion-row>      
+        </ion-card>
+        <ion-card >   
+          <ion-row><h6>Client</h6> </ion-row>  
+          <ion-row>
+            <ion-button fill="outline" (click)="onclientbuttonclick(1)" [ngClass]="selectedClientOption == '1' ? 'highlite' : ''">Intersting</ion-button>            
+            <ion-button  fill="outline" (click)="onclientbuttonclick(2)"[ngClass]="selectedClientOption == '2' ? 'highlite' : ''">Not Looking Right Now</ion-button>
+          </ion-row>
+          <ng-container *ngIf="selectedClientOption == '1'">
+          <ion-row>
+            <ion-col size="4" class="content-css" style="margin: auto;">
+              <ion-checkbox labelPlacement="end">Property Lead</ion-checkbox> 
+            </ion-col>
+            <ion-col size="8" class="content-css" style="margin: auto;">
+            <ion-item >
+              <ion-select label="Select" label-placement="floating">
+                <ion-select-option value="INR">Flat</ion-select-option>
+                <ion-select-option value="USD">Open Space</ion-select-option>
+              </ion-select>
+              </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="4" class="content-css" style="margin: auto;">
+                <ion-checkbox labelPlacement="end">RSVP</ion-checkbox> 
+              </ion-col>
+              <ion-col size="8" class="content-css" style="margin: auto;">
+                <ion-item>
+                <ion-select label="Select" label-placement="floating">
+                  <ion-select-option value="INR">Flat</ion-select-option>
+                  <ion-select-option value="USD">Open Space</ion-select-option>
+                </ion-select>
+              </ion-item>
+                </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="4" class="content-css">
+              <ion-checkbox labelPlacement="end">PL CUM RSVP</ion-checkbox> 
+            </ion-col>           
+        </ion-row>
+      </ng-container>
+      <ng-container *ngIf="selectedClientOption == '2'">
+        <ion-row>          
+            <ng-container *ngFor="let items of notLookingOptions">
+              <ion-col size="6" class="content-css">
+              <ion-checkbox labelPlacement="end">{{items}}</ion-checkbox> 
+            </ion-col>
+            </ng-container>  
+          </ion-row>        
+      </ng-container>
+          </ion-card>
+          <ion-card >   
+            <ion-row><h6>Cross Segment Leads</h6> </ion-row>  
+            <ion-row>
+              <ion-button fill="outline" (click)="onCrossSegmentbuttonclick(1)" [ngClass]="selectedCrossSegmentOption == '1' ? 'highlite' : ''">YES</ion-button>            
+              <ion-button  fill="outline" (click)="onCrossSegmentbuttonclick(2)"[ngClass]="selectedCrossSegmentOption == '2' ? 'highlite' : ''">NO</ion-button>
+            </ion-row>
+            </ion-card>
+            <ion-row style="justify-content: center;">
+              <ion-button  color="success">Submit</ion-button>
+            </ion-row>
 </ion-content>

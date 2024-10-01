@@ -6,10 +6,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cold-call.page.scss'],
 })
 export class ColdCallPage implements OnInit {
-
+  selectedClientOption:any;
+  selectedCrossSegmentOption:any;
+  notLookingOptions:any=['Not Intersted','Voicemail','Call Back','DND']
   constructor() { }
 
   ngOnInit() {
   }
-
+  onclientbuttonclick(selectedbutton:any){
+    if(this.selectedClientOption == selectedbutton){
+      this.selectedClientOption = '';
+      return
+    }
+    this.selectedClientOption=selectedbutton;
+   
+    console.log(this.selectedClientOption)
+  }
+  onCrossSegmentbuttonclick(selectedcrosssegmentbutton:any){
+    if(this.selectedCrossSegmentOption == selectedcrosssegmentbutton){
+      this.selectedCrossSegmentOption = '';
+      return
+    }
+    this.selectedCrossSegmentOption=selectedcrosssegmentbutton;
+    console.log(this.selectedClientOption)
+  }
 }
