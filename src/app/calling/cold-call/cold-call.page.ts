@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 
 @Component({
   selector: 'app-cold-call',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cold-call.page.scss'],
 })
 export class ColdCallPage implements OnInit {
+
   selectedClientOption:any;
   selectedCrossSegmentOption:any;
   notLookingOptions:any=['Not Intersted','Voicemail','Call Back','DND']
-  constructor() { }
+  mobileNumber: any;
+  constructor(private callNumber: CallNumber) { }
 
   ngOnInit() {
   }
@@ -29,5 +32,15 @@ export class ColdCallPage implements OnInit {
     }
     this.selectedCrossSegmentOption=selectedcrosssegmentbutton;
     console.log(this.selectedClientOption)
+  }
+
+  callNow() {
+    if (this.mobileNumber) {
+      this.callNumber.callNumber(this.mobileNumber, true)
+        .then((res: any) => console.log('Dialing', res))
+        .catch((err: any) => console.log('Error launching dialer', err));
+    } else {
+      console.log('Please enter a valid mobile number');
+    }
   }
 }

@@ -8,9 +8,9 @@ export class AppComponent {
  
   public appPages = [
     { title: 'Home', url: '/home', icon: 'home' },
-    { title: 'View Profile', url: '/view-profile', icon: 'person' },
+    { title: 'User Profile', url: '/view-profile', icon: 'person' },
     { title: 'Share Business Card', url: '/share-bisiness-card', icon: 'business' },
-    { title: 'Mark Attendence', url: '/mark-attendence', icon: 'today' },
+    { title: 'Mark Attendance', url: '/mark-attendence', icon: 'today' },
     { title: 'Dashboard', url: '/dashboard', icon: 'grid' },
     { title: 'Add TCF', url: '/add-tcf', icon: 'newspaper' },
     { title: 'TCF List', url: '/tcf-list', icon: 'folder' },

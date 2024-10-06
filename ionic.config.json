@@ -2,7 +2,7 @@
   "name": "RealEstateApp",
   "integrations": {
     "capacitor": {
-      "enabled": false
+      "enabled": true
     },
     "cordova": {}
   },
