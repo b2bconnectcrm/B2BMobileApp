@@ -130,6 +130,15 @@
               <ion-button  fill="outline" (click)="onCrossSegmentbuttonclick(2)"[ngClass]="selectedCrossSegmentOption == '2' ? 'highlite' : ''">NO</ion-button>
             </ion-row>
             </ion-card>
+            <ion-card class="shadow-all">                
+              <ion-list>
+                <ion-item >
+                  <ion-textarea labelPlacement="floating">
+                    <div slot="label">Comments</div>
+                  </ion-textarea>
+                  </ion-item>
+                  </ion-list>
+              </ion-card>
             <ion-row style="justify-content: center;">
               <ion-button  color="success">Submit</ion-button>
             </ion-row>
