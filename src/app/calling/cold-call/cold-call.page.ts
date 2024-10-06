@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-<<<<<<< HEAD
 import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
-=======
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
->>>>>>> 769ee575f0cea1afaa11f865aba8ff70482bd130
 
 @Component({
   selector: 'app-cold-call',
