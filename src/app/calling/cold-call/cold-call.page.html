@@ -15,7 +15,7 @@
   </ion-header>
 </ion-content> -->
 <ion-content>
-  <ion-card >   
+  <ion-card class="shadow-all">   
       <ion-row>
         <ion-col size="12" class="content-css">
           Name
@@ -27,7 +27,7 @@
         </ion-col>       
       </ion-row>      
       </ion-card>
-      <ion-card >   
+      <ion-card class="shadow-all">   
         <ion-row>
           <ion-col size="12" class="content-css">
             Email
@@ -39,8 +39,8 @@
           </ion-col>       
         </ion-row>      
         </ion-card>
-        <ion-card >   
-          <ion-row><h6>Client</h6> </ion-row>  
+        <ion-card class="shadow-all">   
+          <ion-row class="cardheaderalignment"><h6>Client</h6> </ion-row>  
           <ion-row>
             <ion-button fill="outline" (click)="onclientbuttonclick(1)" [ngClass]="selectedClientOption == '1' ? 'highlite' : ''">Intersting</ion-button>            
             <ion-button  fill="outline" (click)="onclientbuttonclick(2)"[ngClass]="selectedClientOption == '2' ? 'highlite' : ''">Not Looking Right Now</ion-button>
@@ -77,7 +77,7 @@
               <ion-checkbox labelPlacement="end">PL CUM RSVP</ion-checkbox> 
             </ion-col>           
         </ion-row>
-      </ng-container>
+      </ng-container>      
       <ng-container *ngIf="selectedClientOption == '2'">
         <ion-row>          
             <ng-container *ngFor="let items of notLookingOptions">
@@ -88,9 +88,44 @@
           </ion-row>        
       </ng-container>
           </ion-card>
-          <ion-card >   
-            <ion-row><h6>Cross Segment Leads</h6> </ion-row>  
+          <ng-container *ngIf="selectedClientOption == '1'">
+          <ion-card class="shadow-all">   
+            <ion-row class="cardheaderalignment"><h6>Interested Projects</h6> </ion-row>
             <ion-row>
+              <ion-chip color="primary" *ngFor="let val of addedProjects">               
+                <ion-label>{{val}}</ion-label>
+                <ion-icon name="close" (click)="removeproject(val)"></ion-icon>
+                </ion-chip>                          
+            </ion-row>
+            <ion-row>
+              <ion-list>
+              <ion-item >
+                <ion-input label="Add more Projects" [(ngModel)]="enterProject" labelPlacement="floating"></ion-input>
+                <ion-button [disabled]="enterProject == ''" (click)="addProject()">Add</ion-button>
+                </ion-item>
+                </ion-list>
+            </ion-row>
+            </ion-card>
+            <ion-card class="shadow-all">   
+              <ion-row class="cardheaderalignment"> <h6>Client</h6> </ion-row>               
+                <ion-radio-group [compareWith]="compareWith" (ionChange)="handleChange($event)">               
+                  <ion-item *ngFor="let food of clientTyPeOptions; trackBy: trackItems">                    
+                    <ion-radio [value]="food" >{{ food.name }}</ion-radio>
+                   </ion-item>                  
+                </ion-radio-group>            
+              </ion-card>
+              <ion-card class="shadow-all">   
+                <ion-row class="cardheaderalignment"><h6>Plan to do</h6> </ion-row>               
+                  <ion-radio-group [compareWith]="plantodocompare" (ionChange)="plantodohandleChange($event)">
+                    <ion-item *ngFor="let planitems of plantoDotypes; trackBy: plantodoitemstracking">
+                      <ion-radio [value]="planitems">{{ planitems.name }}</ion-radio>
+                    </ion-item>
+                  </ion-radio-group>            
+                </ion-card>
+          </ng-container>
+          <ion-card class="shadow-all">   
+            <ion-row class="cardheaderalignment"><h6>Cross Segment Leads</h6> </ion-row>  
+            <ion-row style="justify-content: end;">
               <ion-button fill="outline" (click)="onCrossSegmentbuttonclick(1)" [ngClass]="selectedCrossSegmentOption == '1' ? 'highlite' : ''">YES</ion-button>            
               <ion-button  fill="outline" (click)="onCrossSegmentbuttonclick(2)"[ngClass]="selectedCrossSegmentOption == '2' ? 'highlite' : ''">NO</ion-button>
             </ion-row>
