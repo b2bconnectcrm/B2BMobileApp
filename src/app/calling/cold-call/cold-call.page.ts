@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cold-call',
@@ -50,9 +51,17 @@ export class ColdCallPage implements OnInit {
   ];
   addedProjects:any=[];
   enterProject:any='';
-  constructor() { }
+  coldcallForm:FormGroup | any;
+  constructor(private fb:FormBuilder) { }
 
   ngOnInit() {
+    this.coldcallForm = this.fb.group({
+      name:["",Validators.required],
+      email:["",[Validators.required,Validators.email]],
+      clientType:["",Validators.required],
+      crosssegmentleads:["",Validators.required],
+      comments:[""]
+    });
   }
   onclientbuttonclick(selectedbutton:any){
     if(this.selectedClientOption == selectedbutton){
@@ -97,5 +106,15 @@ export class ColdCallPage implements OnInit {
   }
   removeproject(val:any){
     this.addedProjects = this.addedProjects.filter((x:any)=>x != val)
+  }
+  get name() {
+    return this.coldcallForm.get('name');
+  }
+
+  get email() {
+    return this.coldcallForm.get('email');
+  }
+  onSubmit(){
+    console.log(this.coldcallForm.value)
   }
 }
