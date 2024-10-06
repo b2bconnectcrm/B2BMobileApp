@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { ColdCallPageRoutingModule } from './cold-call-routing.module';
 
 import { ColdCallPage } from './cold-call.page';
+import { AppModule } from 'src/app/app.module';
 
 @NgModule({
-  imports: [
+  imports: [    
     CommonModule,
     FormsModule,
     IonicModule,
+    ReactiveFormsModule,
     ColdCallPageRoutingModule
   ],
   declarations: [ColdCallPage]
