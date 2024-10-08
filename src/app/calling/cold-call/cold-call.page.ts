@@ -183,20 +183,7 @@ export class ColdCallPage implements OnInit {
     }
     this.updateFormGroup();
   }
-  notInteresthandleChange(ev: any) {
-    console.log('Current value:', JSON.stringify(ev.target.value));
-    let crossSegmentLeads =ev.target.value;
-    if(crossSegmentLeads == "Yes"){
-      this.coldcallForm.patchValue({
-        crossSegmentLeads : true
-      });
-    }else{
-      this.coldcallForm.patchValue({
-        crossSegmentLeads : false
-      });     
-    }
-    this.updateFormGroup();
-  }
+ 
   SetValidations(condition:any){
     this.coldcallForm.get('propertyType').setValidators(condition);
     this.coldcallForm.get('subPropertyType').setValidators(condition);
