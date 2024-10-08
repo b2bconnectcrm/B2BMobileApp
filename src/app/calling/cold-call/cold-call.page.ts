@@ -16,6 +16,7 @@ export class ColdCallPage implements OnInit {
   enterProject: any = '';
   coldcallForm: FormGroup | any;
   callButtonEnabled: boolean = true;
+  yesOrnoOptions: any = ['Yes', 'No'];
 
   mobileNumber: any;
   constructor(private callNumber: CallNumber, private fb: FormBuilder) { }
@@ -68,8 +69,19 @@ export class ColdCallPage implements OnInit {
       email: ["", [Validators.required, Validators.email]],
       clientType: ["", Validators.required],
       crosssegmentleads: ["", Validators.required],
-      comments: [""]
+      comments: [""],
+      clientinterest: ["", Validators.required],
+      propertyLead: [false],
+      enterProject: [""],
+      propertyLeadOptions: [''],
+      rsvp: [false],
+      rsvpOptions: [],
+      plcumrsvp: [false],
+      clienttype: ["", Validators.required],
+      planitemstype: ["", Validators.required],
+      nointerestedVal: ["", Validators.required]
     });
+    this.coldcallForm.updateValueAndValidity();
   }
   onclientbuttonclick(selectedbutton: any) {
     if (this.selectedClientOption == selectedbutton) {
@@ -110,7 +122,17 @@ export class ColdCallPage implements OnInit {
   handleChange(ev: any) {
     console.log('Current value:', JSON.stringify(ev.target.value));
   }
+  noninterestedcompareWith(o1: any, o2: any) {
+    return o1 === o2;
+  }
 
+  notInteresthandleChange(ev: any) {
+    console.log('Current value:', JSON.stringify(ev.target.value));
+  }
+  
+  notInteresttrackItems(index: number, item: any) {
+    return item;
+  }
   trackItems(index: number, item: any) {
     return item.id;
   }
