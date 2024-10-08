@@ -68,9 +68,9 @@ export class ColdCallPage implements OnInit {
       name: ["", Validators.required],
       email: ["", [Validators.required, Validators.email]],
       clientType: ["", Validators.required],
-      crosssegmentleads: ["", Validators.required],
       comments: [""],
       clientinterest: ["", Validators.required],
+      crosssegmentleads: ["", Validators.required],
       propertyLead: [false],
       enterProject: [""],
       propertyLeadOptions: [''],
@@ -125,11 +125,13 @@ export class ColdCallPage implements OnInit {
   noninterestedcompareWith(o1: any, o2: any) {
     return o1 === o2;
   }
+ 
 
   notInteresthandleChange(ev: any) {
     console.log('Current value:', JSON.stringify(ev.target.value));
   }
-  
+
+
   notInteresttrackItems(index: number, item: any) {
     return item;
   }
