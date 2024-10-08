@@ -36,9 +36,9 @@
 	<form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
   <ion-input class="ion-input-margin" type="text" mode="md" fill="outline" formControlName="username" placeholder="Enter Username"></ion-input>
   <ion-input class="ion-input-margin" type="password" mode="md" fill="outline" formControlName="password" placeholder="Enter Password"></ion-input>
-  <div class="forgot-password">
+  <!-- <div class="forgot-password">
     <ion-router-link href="/forgot-password" class="orange-link">Forgot Password?</ion-router-link>
-  </div>
+  </div> -->
 
   <ion-button type="submit" expand="block" class="btn-background-color ion-btn-margin"  [disabled]="!loginForm.valid">Sign In</ion-button>
 

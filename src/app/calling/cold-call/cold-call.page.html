@@ -9,186 +9,225 @@
 
 <ion-content>
   <ng-container *ngIf="!callButtonEnabled">
-  <form name="f" [formGroup]="coldcallForm" class="form">
-    <ion-card class="shadow-all">
-      <ion-row>
-        <ion-col size="12" class="content-css">
-          <ion-list>
-            <ion-item>
-              <ion-input type="text" formControlName="name" label="Name" labelPlacement="floating"></ion-input>
-            </ion-item>
-            <ion-text class="errorClass" *ngIf="name?.hasError('required') && name?.touched">
-              <span>Name is required</span>
-            </ion-text>
-          </ion-list>
-        </ion-col>
-      </ion-row>
-    </ion-card>
-    <ion-card class="shadow-all">
-      <ion-row>
-        <ion-col size="12" class="content-css">
-          <ion-list>
-            <ion-item>
-              <ion-input type="email" formControlName="email" label="Email" labelPlacement="floating"></ion-input>
-            </ion-item>
-            <ion-text class="errorClass" *ngIf="email?.hasError('required') && email?.touched">
-              <span>Enter Valid Email</span>
-            </ion-text>
-          </ion-list>
-        </ion-col>
-      </ion-row>
-    </ion-card>
-    <ion-card class="shadow-all">
-      <ion-row class="cardheaderalignment">
-        <h6>Client Intersted</h6>
-      </ion-row>
-      <ion-radio-group formControlName="clientinterest" [compareWith]="noninterestedcompareWith"
-        (ionChange)="notInteresthandleChange($event)">
+    <form name="f" [formGroup]="coldcallForm" class="form">
+      <ion-card class="shadow-all">
         <ion-row>
-          <ion-col size="6" *ngFor="let options of yesOrnoOptions; trackBy: notInteresttrackItems">
-            <ion-item>
-              <ion-radio [value]="options" justify="start" labelPlacement="end">{{ options }}</ion-radio>
-            </ion-item>
+          <ion-col size="12" class="content-css">
+            <ion-list>
+              <ion-item>
+                <ion-input type="text" formControlName="firstName" label="Name" labelPlacement="floating"></ion-input>
+              </ion-item>
+              <ion-text class="errorClass" *ngIf="name?.hasError('required') && name?.touched">
+                <span>Name is required</span>
+              </ion-text>
+            </ion-list>
           </ion-col>
         </ion-row>
-      </ion-radio-group>
-      <ng-container *ngIf="coldcallForm.controls.clientinterest.value === 'Yes'">
-        <ion-card class="shadow-all">
+      </ion-card>
+      <ion-card class="shadow-all">
+        <ion-row>
+          <ion-col size="12" class="content-css">
+            <ion-list>
+              <ion-item>
+                <ion-input type="email" formControlName="email" label="Email" labelPlacement="floating"></ion-input>
+              </ion-item>
+              <ion-text class="errorClass" *ngIf="email?.hasError('required') && email?.touched">
+                <span>Enter Valid Email</span>
+              </ion-text>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-card class="shadow-all">
+        <ion-row class="cardheaderalignment">
+          <h6>Client Intersted</h6>
+        </ion-row>
+        <ion-radio-group formControlName="clientinterest" [compareWith]="noninterestedcompareWith"
+          (ionChange)="notInteresthandleChange($event)">
           <ion-row>
-            <ion-col size="4" class="content-css" style="margin: auto;">
-              <ion-checkbox formControlName="propertyLead" labelPlacement="end">Property Lead</ion-checkbox>
-            </ion-col>
-            <ion-col size="8" class="content-css" style="margin: auto;">
-              <ion-item *ngIf="coldcallForm.controls.propertyLead.value">
-                <ion-select formControlName="propertyLeadOptions" label="Select" label-placement="floating">
-                  <ion-select-option value="INR">Flat</ion-select-option>
-                  <ion-select-option value="USD">Open Space</ion-select-option>
-                </ion-select>
+            <ion-col size="6" *ngFor="let options of yesOrnoOptions; trackBy: notInteresttrackItems">
+              <ion-item>
+                <ion-radio [value]="options" justify="start" labelPlacement="end">{{ options }}</ion-radio>
               </ion-item>
             </ion-col>
           </ion-row>
-          <ion-row>
-            <ion-col size="4" class="content-css" style="margin: auto;">
-              <ion-checkbox formControlName="rsvp" labelPlacement="end">RSVP</ion-checkbox>
-            </ion-col>
-            <ion-col size="8" class="content-css" style="margin: auto;">
-              <ion-item *ngIf="coldcallForm.controls.rsvp.value">
-                <ion-select formControlName="rsvpOptions" label="Select" label-placement="floating">
-                  <ion-select-option value="INR">Flat</ion-select-option>
-                  <ion-select-option value="USD">Open Space</ion-select-option>
-                </ion-select>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="4" class="content-css">
-              <ion-checkbox formControlName="plcumrsvp" labelPlacement="end">PL CUM RSVP</ion-checkbox>
-            </ion-col>
-          </ion-row>
-        </ion-card>
-      </ng-container>
-      <ng-container *ngIf="coldcallForm.controls.clientinterest.value === 'No'">
-        <ion-card class="shadow-all">
-          <ion-radio-group formControlName="nointerestedVal" [compareWith]="noninterestedcompareWith"
-            (ionChange)="notInteresthandleChange($event)">
+        </ion-radio-group>
+        <ng-container *ngIf="coldcallForm.controls.clientinterest.value === 'Yes'">
+          <ion-card class="shadow-all">
             <ion-row>
-              <ion-col size="6" *ngFor="let nonint of notLookingOptions; trackBy: notInteresttrackItems">
+              <ion-col size="4" class="content-css" style="margin: auto;">
+                <ion-lable>Property Type</ion-lable>
+              </ion-col>
+              <ion-col size="8" class="content-css" style="margin: auto;">
                 <ion-item>
-                  <ion-radio [value]="nonint" justify="start" labelPlacement="end">{{ nonint }}</ion-radio>
+                  <ion-select formControlName="propertyType" label="Select" label-placement="floating"
+                    (ionChange)="onSelectPropertyChange($event)">
+                    <ion-select-option value="PLOT">Plot</ion-select-option>
+                    <ion-select-option value="FLAT">Flat</ion-select-option>
+                    <ion-select-option value="COMMERCIAL">Commercial Space</ion-select-option>
+
+                  </ion-select>
                 </ion-item>
               </ion-col>
             </ion-row>
-          </ion-radio-group>
+            <ion-row *ngIf="selectedPropertyType != null">
+              <ion-col size="4" class="content-css" style="margin: auto;">
+                <ion-lable>Sub Type</ion-lable>
+              </ion-col>
+              <ion-col size="8" class="content-css" style="margin: auto;" *ngIf="selectedPropertyType == 'PLOT'">
+                <ion-item>
+                  <ion-select formControlName="subPropertyType" label="Select" label-placement="floating">
+                    <ion-select-option value="farmland">Farm Land</ion-select-option>
+                    <ion-select-option value="DTCP">DTCP</ion-select-option>
+                    <ion-select-option value="HMDA">HMDA</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col size="8" class="content-css" style="margin: auto;" *ngIf="selectedPropertyType == 'FLAT'">
+                <ion-item>
+                  <ion-select formControlName="subPropertyType" label="Select" label-placement="floating">
+                    <ion-select-option value="Gated">Gated</ion-select-option>
+                    <ion-select-option value="Standalone">Standalone</ion-select-option>
+                    <ion-select-option value="Resale">Resale</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col size="8" class="content-css" style="margin: auto;" *ngIf="selectedPropertyType == 'COMMERCIAL'">
+                <ion-item>
+                  <ion-select formControlName="subPropertyType" label="Select" label-placement="floating">
+                    <ion-select-option value="Office">Office</ion-select-option>
+                    <ion-select-option value="Retail">Retail</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ng-container>
+        <ng-container *ngIf="coldcallForm.controls.clientinterest.value === 'No'">
+          <ion-card class="shadow-all">
+            <ion-radio-group formControlName="nointerestedVal" [compareWith]="noninterestedcompareWith"
+              (ionChange)="notInteresthandleChange($event)">
+              <ion-row>
+                <ion-col size="12" *ngFor="let nonint of notLookingOptions; trackBy: notInteresttrackItems">
+                  <ion-item>
+                    <ion-radio [value]="nonint.value" justify="start" labelPlacement="end">{{ nonint.label }}
+                    </ion-radio>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-radio-group>
 
-          <!-- <ion-radio-group formControlName="nointerestedVal" [compareWith]="noninterestedcompareWith"
+            <!-- <ion-radio-group formControlName="nointerestedVal" [compareWith]="noninterestedcompareWith"
             (ionChange)="notInteresthandleChange($event)">
             <ion-item *ngFor="let nonint of notLookingOptions; trackBy: notInteresttrackItems">
               <ion-radio [value]="nonint">{{ nonint }}</ion-radio>
             </ion-item>
           </ion-radio-group> -->
+          </ion-card>
+        </ng-container>
+      </ion-card>
+      <ng-container *ngIf="coldcallForm.controls.clientinterest.value === 'Yes'">
+        <ion-card class="shadow-all">
+          <ion-row class="cardheaderalignment">
+            <h6>Interested Projects</h6>
+          </ion-row>
+          <ion-row>
+            <ion-chip color="primary" *ngFor="let project of selectedProjects">
+              <ion-label>{{project}}</ion-label>
+              <ion-icon name="close" (click)="removeproject(project)"></ion-icon>
+            </ion-chip>
+          </ion-row>
+          <ion-row>
+            <ion-list>
+              <ion-item>
+                <ion-input label="Add more Projects" formControlName="enterProject" labelPlacement="floating">
+                </ion-input>
+                <ion-button [disabled]="coldcallForm.controls.enterProject.value === ''" (click)="addProject()">Add
+                </ion-button>
+              </ion-item>
+            </ion-list>
+          </ion-row>
+        </ion-card>
+        <ion-card class="shadow-all">
+          <ion-row class="cardheaderalignment">
+            <h6>Client</h6>
+          </ion-row>
+          <ion-radio-group formControlName="clienttype" [compareWith]="compareWith" (ionChange)="handleChange($event)">
+            <ion-row>
+              <ion-col size="6" *ngFor="let leadStatus of leadStatusList; trackBy: trackItems">
+                <ion-item>
+                  <ion-radio [value]="leadStatus" justify="start" labelPlacement="end">{{ leadStatus.name }}</ion-radio>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-radio-group>
+        </ion-card>
+        <ion-card class="shadow-all">
+          <ion-row class="cardheaderalignment">
+            <h6>Plan to do</h6>
+          </ion-row>
+          <ion-radio-group formControlName="planitemstype" [compareWith]="plantodocompare"
+            (ionChange)="plantodohandleChange($event)">
+            <ion-row>
+              <ion-col size="6" *ngFor="let planitem of plantoDotypes; trackBy: plantodoitemstracking">
+                <ion-item>
+                  <ion-radio [value]="planitem" justify="start" labelPlacement="end">{{ planitem.name }}</ion-radio>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-radio-group>
+        </ion-card>
+        <ion-card class="shadow-all">
+          <ion-row>
+            <ion-col size="4" class="content-css" style="margin: auto;">
+              <ion-lable>Sales Pipeline</ion-lable>
+            </ion-col>
+            <ion-col size="8" class="content-css" style="margin: auto;">
+              <ion-item>
+                <ion-select formControlName="salesPipeline" label="Select" label-placement="floating">
+                  <ion-select-option value="OPEN">Open</ion-select-option>
+                  <ion-select-option value="COLD_CALLING_MEETING">Cold Calling/Meeting</ion-select-option>
+                  <ion-select-option value="PROPOSAL">Proposal</ion-select-option>
+                  <ion-select-option value="NEGOTIATION">Negotiation</ion-select-option>
+                  <ion-select-option value="DEALS_OFFERED">Deal Offered</ion-select-option>
+                  <ion-select-option value="CLOSURE">Closure</ion-select-option>
+                  <ion-select-option value="CONVERSION">Conversion</ion-select-option>
+
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
         </ion-card>
       </ng-container>
-    </ion-card>
-    <ng-container *ngIf="coldcallForm.controls.clientinterest.value === 'Yes'">
       <ion-card class="shadow-all">
         <ion-row class="cardheaderalignment">
-          <h6>Interested Projects</h6>
+          <h6>Cross Segment Leads</h6>
         </ion-row>
-        <ion-row>
-          <ion-chip color="primary" *ngFor="let val of addedProjects">
-            <ion-label>{{val}}</ion-label>
-            <ion-icon name="close" (click)="removeproject(val)"></ion-icon>
-          </ion-chip>
-        </ion-row>
-        <ion-row>
-          <ion-list>
-            <ion-item>
-              <ion-input label="Add more Projects" formControlName="enterProject" labelPlacement="floating"></ion-input>
-              <ion-button [disabled]="coldcallForm.controls.enterProject.value === ''"
-                (click)="addProject()">Add</ion-button>
-            </ion-item>
-          </ion-list>
-        </ion-row>
-      </ion-card>
-      <ion-card class="shadow-all">
-        <ion-row class="cardheaderalignment">
-          <h6>Client</h6>
-        </ion-row>
-        <ion-radio-group formControlName="clienttype" [compareWith]="compareWith" (ionChange)="handleChange($event)">
+        <ion-radio-group formControlName="crosssegmentleads" [compareWith]="noninterestedcompareWith"
+          (ionChange)="notInteresthandleChange($event)">
           <ion-row>
-            <ion-col size="6" *ngFor="let food of clientTyPeOptions; trackBy: trackItems">
+            <ion-col size="6" *ngFor="let options of yesOrnoOptions; trackBy: notInteresttrackItems">
               <ion-item>
-                <ion-radio [value]="food" justify="start" labelPlacement="end">{{ food.name }}</ion-radio>
+                <ion-radio [value]="options" justify="start" labelPlacement="end">{{ options }}</ion-radio>
               </ion-item>
             </ion-col>
           </ion-row>
         </ion-radio-group>
       </ion-card>
       <ion-card class="shadow-all">
-        <ion-row class="cardheaderalignment">
-          <h6>Plan to do</h6>
-        </ion-row>
-        <ion-radio-group formControlName="planitemstype" [compareWith]="plantodocompare"
-          (ionChange)="plantodohandleChange($event)">
-          <ion-row>
-            <ion-col size="6" *ngFor="let planitems of plantoDotypes; trackBy: plantodoitemstracking">
-              <ion-item>
-                <ion-radio [value]="planitems" justify="start" labelPlacement="end">{{ planitems.name }}</ion-radio>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-        </ion-radio-group>
+        <ion-list>
+          <ion-item>
+            <ion-textarea formControlName="comments" labelPlacement="floating">
+              <div slot="label">Comments</div>
+            </ion-textarea>
+          </ion-item>
+        </ion-list>
       </ion-card>
-    </ng-container>
-    <ion-card class="shadow-all">
-      <ion-row class="cardheaderalignment">
-        <h6>Cross Segment Leads</h6>
+      <ion-row style="justify-content: center;">
+        <ion-button (click)="saveLeadDetails()" color="success">Submit</ion-button>
       </ion-row>
-      <ion-radio-group formControlName="crosssegmentleads" [compareWith]="noninterestedcompareWith"
-        (ionChange)="notInteresthandleChange($event)">
-        <ion-row>
-          <ion-col size="6" *ngFor="let options of yesOrnoOptions; trackBy: notInteresttrackItems">
-            <ion-item>
-              <ion-radio [value]="options" justify="start" labelPlacement="end">{{ options }}</ion-radio>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ion-radio-group>
-    </ion-card>
-    <ion-card class="shadow-all">
-      <ion-list>
-        <ion-item>
-          <ion-textarea formControlName="comments" labelPlacement="floating">
-            <div slot="label">Comments</div>
-          </ion-textarea>
-        </ion-item>
-      </ion-list>
-    </ion-card>
-    <ion-row style="justify-content: center;">
-      <ion-button (click)="onSubmit()" color="success">Submit</ion-button>
-    </ion-row>
-  </form>
-</ng-container>
+    </form>
+  </ng-container>
 
   <ng-container *ngIf="callButtonEnabled">
     <ion-button (click)="callNow()">Call Now</ion-button>

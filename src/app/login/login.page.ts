@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -8,20 +9,27 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+
   loginForm!: FormGroup;
 
-  constructor(private navCtrl: NavController, private fb: FormBuilder) {}
+  constructor(private navCtrl: NavController, private fb: FormBuilder, private loginService: LoginService,
+    private alertController: AlertController) {
+    this.loginForm = this.fb.group({
+      password: ['', [Validators.required]],
+      username: ['', [Validators.required]]
+    });
+  }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      // Handle login logic here
-      console.log('password:', this.loginForm.value.password);
-      console.log('username:', this.loginForm.value.username);
-      // Navigate to the home page on successful login
-      // this.navCtrl.navigateRoot('/otp');
-      this.navCtrl.navigateRoot('/home');
+      this.loginService.doLogin(this.loginForm.value).subscribe((data: any) => {
+        this.navCtrl.navigateRoot('/home');
+      }, (error: any) => {
+        this.presentAlert();
+        console.dir(error);
+      })
+
     } else {
-      // Show validation errors
       this.loginForm.markAllAsTouched();
     }
   }
@@ -35,14 +43,19 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
-    this.createForm();
+
   }
 
-  createForm() {
-    this.loginForm = this.fb.group({
-      password: ['', [Validators.required]], // 10 digit password number validation
-      username: ['', Validators.required]
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Invalid Credentials ',
+      message: 'Please enter valid Credentials',
+      buttons: ['OK'],
     });
+
+    await alert.present();
   }
+
+
 
 }

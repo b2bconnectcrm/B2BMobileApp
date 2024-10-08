@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
+import { CallingService } from 'src/app/services/calling.service';
 
 @Component({
   selector: 'app-cold-call',
@@ -11,17 +13,71 @@ export class ColdCallPage implements OnInit {
 
   selectedClientOption: any;
   selectedCrossSegmentOption: any;
-  notLookingOptions: any = ['Not Intersted', 'Voicemail', 'Call Back', 'DND'];
-  addedProjects: any = [];
+  notLookingOptions: any = [{
+    "label": "Irrelevant Location",
+    "value": "IrrelevantLocation"
+  },
+  {
+    "label": "Not reachable",
+    "value": "Notreachable"
+  },
+  {
+    "label": "Not Answering",
+    "value": "NotAnswering"
+  },
+  {
+    "label": "All ready purchased",
+    "value": "Allreadypurchased"
+  }
+  ,
+  {
+    "label": "Already in touch with Company Employee",
+    "value": "AlreadyintouchwithCompanyEmployee"
+  }
+  
+  ];
+  selectedProjects: any = [];
   enterProject: any = '';
   coldcallForm: FormGroup | any;
   callButtonEnabled: boolean = true;
   yesOrnoOptions: any = ['Yes', 'No'];
 
   mobileNumber: any;
-  constructor(private callNumber: CallNumber, private fb: FormBuilder) { }
+  selectedPropertyType: any;
+  constructor(private callNumber: CallNumber, private fb: FormBuilder, private router: Router,
+     private callingService: CallingService) {
 
-  clientTyPeOptions: any = [
+    this.coldcallForm = this.fb.group({
+      firstName: ["", Validators.required],
+      email: ["", [Validators.required, Validators.email]],
+      mobile: ["", Validators.required],
+      clientInterested: [false],
+      crossSegmentLeads: [false],
+      comments: [""],
+      notINterestedStatus: [""],
+
+      properties:[null],
+      propertyType: [""],
+      subPropertyType: [""],
+      salesPipeline: [""],
+      crossSegments: [""],
+      leadStatus:[""],
+      plantodo: [""],
+      clientType: [""],
+     
+      clientinterest: [""],
+      crosssegmentleads: [""],
+      propertyLead: [false],
+      enterProject: [""],
+      propertyLeadOptions: [''],
+      clienttype: [""],
+      planitemstype: [""],
+      nointerestedVal: [""]
+    });
+    this.coldcallForm.updateValueAndValidity();
+   }
+
+  leadStatusList: any = [
     {
       id: 1,
       name: 'HOT',
@@ -37,51 +93,41 @@ export class ColdCallPage implements OnInit {
       name: 'COLD',
       type: 'COLD',
     },
+    {
+      id: 4,
+      name: 'CLOSE',
+      type: 'CLOSE',
+    },
   ];
+
   plantoDotypes: any = [
     {
       id: 1,
       name: 'F2F',
-      type: 'F2F',
+      value: 'F2F',
     },
     {
       id: 2,
       name: 'Site Visit',
-      type: 'Site Visit',
+      value: 'SiteVisit',
     },
     {
       id: 3,
       name: 'Calls',
-      type: 'Calls',
+      value: 'Calls',
     },
     {
       id: 4,
       name: 'Closure Meeting',
-      type: 'Closure Meeting',
+      value: 'ClosureMeeting',
     },
   ];
 
 
 
   ngOnInit() {
-    this.coldcallForm = this.fb.group({
-      name: ["", Validators.required],
-      email: ["", [Validators.required, Validators.email]],
-      clientType: ["", Validators.required],
-      comments: [""],
-      clientinterest: ["", Validators.required],
-      crosssegmentleads: ["", Validators.required],
-      propertyLead: [false],
-      enterProject: [""],
-      propertyLeadOptions: [''],
-      rsvp: [false],
-      rsvpOptions: [],
-      plcumrsvp: [false],
-      clienttype: ["", Validators.required],
-      planitemstype: ["", Validators.required],
-      nointerestedVal: ["", Validators.required]
-    });
-    this.coldcallForm.updateValueAndValidity();
+    this.getAllProjects();
+   
   }
   onclientbuttonclick(selectedbutton: any) {
     if (this.selectedClientOption == selectedbutton) {
@@ -106,6 +152,9 @@ export class ColdCallPage implements OnInit {
     if (this.mobileNumber && this.mobileNumber.length == 10) {
       this.callNumber.callNumber(this.mobileNumber, true)
         .then((res: any) => {
+          this.coldcallForm.patchValue({
+            mobile : this.mobileNumber
+          })
           setTimeout(() => {
             this.callButtonEnabled = false;
           }, 10000);
@@ -120,12 +169,39 @@ export class ColdCallPage implements OnInit {
     }
   }
 
+  saveLeadDetails() {
+    console.log(this.coldcallForm.value)
+    this.callingService.createLeadDetails(this.coldcallForm.value).subscribe((data: any) => {
+      console.log("success")
+      this.router.navigateByUrl("/home");
+    }, (error: any) => {
+      console.log("error")
+    })
+  }
+
+  getAllProjects() {
+    console.log(this.coldcallForm.value)
+    this.callingService.getAllPropeties().subscribe((data: any) => {
+      this.selectedProjects = data;
+      this.coldcallForm.patchValue({
+        properties:this.selectedProjects
+      })
+      console.dir(this.selectedProjects);
+    }, (error: any) => {
+      console.log("error")
+    })
+  }
+
   compareWith(o1: any, o2: any) {
     return o1.id === o2.id;
   }
 
   handleChange(ev: any) {
     console.log('Current value:', JSON.stringify(ev.target.value));
+    let clientType =ev.target.value;
+    this.coldcallForm.patchValue({
+      leadStatus : clientType?.name
+    })
   }
   noninterestedcompareWith(o1: any, o2: any) {
     return o1 === o2;
@@ -134,6 +210,17 @@ export class ColdCallPage implements OnInit {
 
   notInteresthandleChange(ev: any) {
     console.log('Current value:', JSON.stringify(ev.target.value));
+    let crossSegmentLeads =ev.target.value;
+    if(crossSegmentLeads == "Yes"){
+      this.coldcallForm.patchValue({
+        crossSegmentLeads : true
+      })
+    }else{
+      this.coldcallForm.patchValue({
+        crossSegmentLeads : false
+      })
+    }
+   
   }
 
 
@@ -145,6 +232,10 @@ export class ColdCallPage implements OnInit {
   }
   plantodohandleChange(ev: any) {
     console.log('Current value:', JSON.stringify(ev.target.value));
+    let plantodo = ev.target.value;
+    this.coldcallForm.patchValue({
+      plantodo : plantodo?.value
+    })
   }
   plantodocompare(o1: any, o2: any) {
     return o1.id === o2.id;
@@ -153,20 +244,23 @@ export class ColdCallPage implements OnInit {
     return item.id;
   }
   addProject() {
-    this.addedProjects.push(this.enterProject);
+    this.selectedProjects.push(this.enterProject);
     this.enterProject = '';
   }
   removeproject(val: any) {
-    this.addedProjects = this.addedProjects.filter((x: any) => x != val)
+    this.selectedProjects = this.selectedProjects.filter((x: any) => x != val)
   }
   get name() {
-    return this.coldcallForm.get('name');
+    return this.coldcallForm.get('firstName');
   }
 
   get email() {
     return this.coldcallForm.get('email');
   }
-  onSubmit() {
-    console.log(this.coldcallForm.value)
+
+  onSelectPropertyChange(event: any){
+    console.log('Current value:', JSON.stringify(event.target.value));
+    this.selectedPropertyType= event.target.value;
   }
+
 }
