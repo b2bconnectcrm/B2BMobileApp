@@ -106,10 +106,15 @@ export class ColdCallPage implements OnInit {
     if (this.mobileNumber && this.mobileNumber.length == 10) {
       this.callNumber.callNumber(this.mobileNumber, true)
         .then((res: any) => {
-          this.callButtonEnabled = false;
+          setTimeout(() => {
+            this.callButtonEnabled = false;
+          }, 10000);
           console.log('Dialing', res);
         })
-        .catch((err: any) => { console.log('Error launching dialer', err) });
+        .catch((err: any) => {
+          this.callButtonEnabled = false;
+          console.log('Error launching dialer', err)
+        });
     } else {
       alert('Please enter a valid mobile number');
     }
@@ -125,7 +130,7 @@ export class ColdCallPage implements OnInit {
   noninterestedcompareWith(o1: any, o2: any) {
     return o1 === o2;
   }
- 
+
 
   notInteresthandleChange(ev: any) {
     console.log('Current value:', JSON.stringify(ev.target.value));

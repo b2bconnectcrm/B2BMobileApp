@@ -7,15 +7,8 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- <ion-content>
-  <ion-header>
-    <ion-toolbar>
-      <ion-title size="large">coldCall</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content> -->
 <ion-content>
-
+  <ng-container *ngIf="!callButtonEnabled">
   <form name="f" [formGroup]="coldcallForm" class="form">
     <ion-card class="shadow-all">
       <ion-row>
@@ -195,4 +188,13 @@
       <ion-button (click)="onSubmit()" color="success">Submit</ion-button>
     </ion-row>
   </form>
+</ng-container>
+
+  <ng-container *ngIf="callButtonEnabled">
+    <ion-button (click)="callNow()">Call Now</ion-button>
+    <ion-item>
+      <ion-label position="floating">Enter Mobile Number</ion-label>
+      <ion-input type="tel" [(ngModel)]="mobileNumber" maxlength="10" minlength="10"></ion-input>
+    </ion-item>
+  </ng-container>
 </ion-content>
