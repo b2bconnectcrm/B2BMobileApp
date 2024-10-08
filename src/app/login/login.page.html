@@ -1,10 +1,4 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>Login</ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
-<ion-content>
+<!-- <ion-content>
 	<form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
 		<div class="input-group">
 			<ion-item>
@@ -30,46 +24,26 @@
 			<ion-icon name="logo-google" slot="start"></ion-icon>
 			Sign in with Google
 		</ion-button>
-		<!-- <ion-button type="button" expand="block" color="tertiary">
-			<ion-icon name="logo-apple" slot="start"></ion-icon>
-			Sign in with Apple
-		</ion-button> -->
 	</form>
-</ion-content>
-
-
-<!-- <ion-content class="ion-padding">
-  <div class="login-container">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <ion-item>
-        <ion-label position="floating">User Name</ion-label>
-        <ion-input
-          type="tel"
-          formControlName="username"
-          required>
-        </ion-input>
-      </ion-item>
-      <ion-text color="danger" *ngIf="username?.hasError('required') && username?.touched">
-        UserName is required
-      </ion-text>
-     
-      <ion-item>
-        <ion-label position="floating">password Number</ion-label>
-        <ion-input
-          type="tel"
-          formControlName="password"
-          maxlength="10"
-          required>
-        </ion-input>
-      </ion-item>
-      <ion-text color="danger" *ngIf="password?.hasError('required') && password?.touched">
-        password number is required
-      </ion-text>
-      <ion-text color="danger" *ngIf="password?.hasError('pattern') && password?.touched">
-        Enter a valid password number
-      </ion-text> 
-      
-      <ion-button expand="block" type="submit" [disabled]="loginForm.invalid">Login</ion-button>
-    </form>
-  </div>
 </ion-content> -->
+<ion-content class="ion-align-items-center ion-justify-content-center ion-padding">
+  <div class="ion-text-center margin-top">
+    <h2>Sign in</h2>
+    <p class="sub-title">Welcome to B2B</p>
+  </div>
+  
+
+	<form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+  <ion-input class="ion-input-margin" type="text" mode="md" fill="outline" formControlName="username" placeholder="Enter Username"></ion-input>
+  <ion-input class="ion-input-margin" type="password" mode="md" fill="outline" formControlName="password" placeholder="Enter Password"></ion-input>
+  <div class="forgot-password">
+    <ion-router-link href="/forgot-password" class="orange-link">Forgot Password?</ion-router-link>
+  </div>
+
+  <ion-button type="submit" expand="block" class="btn-background-color ion-btn-margin"  [disabled]="!loginForm.valid">Sign In</ion-button>
+
+  <!-- <div class="register-account">
+  <p>Don't have an account? <ion-router-link href="/register-account" class="orange-link">Register Now</ion-router-link></p>
+  </div> -->
+  </form>
+</ion-content>

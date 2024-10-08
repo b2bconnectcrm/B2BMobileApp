@@ -47,3 +47,28 @@
     padding-left: 15px;background: var(--ion-color-danger);color: white;display: block;font-size: small;padding-top: 5px;
     padding-bottom: 5px;
   }
+
+  
+.btn-background-color {
+    --border-radius: 10px;
+    --width: 60px;
+    --height: 60px;
+    padding: 0;
+    --background: #fe5a1d;
+    --background-hover: #fe5a1d;
+    --background-activated: #fe5a1d;
+    --background-focused: #fe5a1d;
+}
+
+.ion-btn-margin {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.sub-title {
+    color: rgb(176, 171, 171);
+}
+
+.ion-input-margin {
+    margin-bottom: 10px;
+}

@@ -9,17 +9,18 @@ import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 })
 export class ColdCallPage implements OnInit {
 
-  selectedClientOption:any;
-  selectedCrossSegmentOption:any;
-  notLookingOptions:any=['Not Intersted','Voicemail','Call Back','DND'];
-  addedProjects:any=[];
-  enterProject:any='';
-  coldcallForm:FormGroup | any;
+  selectedClientOption: any;
+  selectedCrossSegmentOption: any;
+  notLookingOptions: any = ['Not Intersted', 'Voicemail', 'Call Back', 'DND'];
+  addedProjects: any = [];
+  enterProject: any = '';
+  coldcallForm: FormGroup | any;
+  callButtonEnabled: boolean = true;
 
   mobileNumber: any;
-  constructor(private callNumber: CallNumber, private fb:FormBuilder) { }
+  constructor(private callNumber: CallNumber, private fb: FormBuilder) { }
 
-  clientTyPeOptions:any=[
+  clientTyPeOptions: any = [
     {
       id: 1,
       name: 'HOT',
@@ -36,7 +37,7 @@ export class ColdCallPage implements OnInit {
       type: 'COLD',
     },
   ];
-  plantoDotypes:any=[
+  plantoDotypes: any = [
     {
       id: 1,
       name: 'F2F',
@@ -58,73 +59,76 @@ export class ColdCallPage implements OnInit {
       type: 'Closure Meeting',
     },
   ];
- 
+
 
 
   ngOnInit() {
     this.coldcallForm = this.fb.group({
-      name:["",Validators.required],
-      email:["",[Validators.required,Validators.email]],
-      clientType:["",Validators.required],
-      crosssegmentleads:["",Validators.required],
-      comments:[""]
+      name: ["", Validators.required],
+      email: ["", [Validators.required, Validators.email]],
+      clientType: ["", Validators.required],
+      crosssegmentleads: ["", Validators.required],
+      comments: [""]
     });
   }
-  onclientbuttonclick(selectedbutton:any){
-    if(this.selectedClientOption == selectedbutton){
+  onclientbuttonclick(selectedbutton: any) {
+    if (this.selectedClientOption == selectedbutton) {
       this.selectedClientOption = '';
       return
     }
-    this.selectedClientOption=selectedbutton;
-   
+    this.selectedClientOption = selectedbutton;
+
     console.log(this.selectedClientOption)
   }
-  onCrossSegmentbuttonclick(selectedcrosssegmentbutton:any){
-    if(this.selectedCrossSegmentOption == selectedcrosssegmentbutton){
+  onCrossSegmentbuttonclick(selectedcrosssegmentbutton: any) {
+    if (this.selectedCrossSegmentOption == selectedcrosssegmentbutton) {
       this.selectedCrossSegmentOption = '';
       return
     }
-    this.selectedCrossSegmentOption=selectedcrosssegmentbutton;
+    this.selectedCrossSegmentOption = selectedcrosssegmentbutton;
     console.log(this.selectedClientOption)
   }
 
 
   callNow() {
-    if (this.mobileNumber) {
+    if (this.mobileNumber && this.mobileNumber.length == 10) {
       this.callNumber.callNumber(this.mobileNumber, true)
-        .then((res: any) => console.log('Dialing', res))
-        .catch((err: any) => console.log('Error launching dialer', err));
+        .then((res: any) => {
+          this.callButtonEnabled = false;
+          console.log('Dialing', res);
+        })
+        .catch((err: any) => { console.log('Error launching dialer', err) });
     } else {
-      console.log('Please enter a valid mobile number');
+      alert('Please enter a valid mobile number');
     }
   }
 
-  compareWith(o1:any, o2:any) {
+  compareWith(o1: any, o2: any) {
     return o1.id === o2.id;
   }
 
-  handleChange(ev:any) {
+  handleChange(ev: any) {
     console.log('Current value:', JSON.stringify(ev.target.value));
   }
 
   trackItems(index: number, item: any) {
     return item.id;
   }
-  plantodohandleChange(ev:any) {
+  plantodohandleChange(ev: any) {
     console.log('Current value:', JSON.stringify(ev.target.value));
   }
-  plantodocompare(o1:any, o2:any) {
+  plantodocompare(o1: any, o2: any) {
     return o1.id === o2.id;
   }
   plantodoitemstracking(index: number, item: any) {
     return item.id;
   }
-  addProject(){
+  addProject() {
     this.addedProjects.push(this.enterProject);
-    this.enterProject='';
+    this.enterProject = '';
   }
-  removeproject(val:any){
-    this.addedProjects = this.addedProjects.filter((x:any)=>x != val)
+  removeproject(val: any) {
+    this.addedProjects = this.addedProjects.filter((x: any) => x != val)
   }
   get name() {
     return this.coldcallForm.get('name');
@@ -133,7 +137,7 @@ export class ColdCallPage implements OnInit {
   get email() {
     return this.coldcallForm.get('email');
   }
-  onSubmit(){
+  onSubmit() {
     console.log(this.coldcallForm.value)
   }
 }
