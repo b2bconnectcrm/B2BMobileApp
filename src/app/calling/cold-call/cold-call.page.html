@@ -16,11 +16,11 @@
             <ion-list>
               <ion-item>
                 <ion-input type="text" formControlName="firstName" label="Name" labelPlacement="floating"></ion-input>
-              </ion-item>
-              <ion-text class="errorClass" *ngIf="name?.hasError('required') && name?.touched">
-                <span>Name is required</span>
-              </ion-text>
+              </ion-item>  
             </ion-list>
+             <small class="colorred" *ngIf="f['firstName'].touched && f['firstName'].errors">
+                <span>Required*</span>
+              </small>
           </ion-col>
         </ion-row>
       </ion-card>
@@ -30,11 +30,11 @@
             <ion-list>
               <ion-item>
                 <ion-input type="email" formControlName="email" label="Email" labelPlacement="floating"></ion-input>
-              </ion-item>
-              <ion-text class="errorClass" *ngIf="email?.hasError('required') && email?.touched">
-                <span>Enter Valid Email</span>
-              </ion-text>
+              </ion-item>  
             </ion-list>
+            <small class="colorred" *ngIf="f['email'].touched && f['email'].errors">
+              <span>Required*</span>
+            </small>
           </ion-col>
         </ion-row>
       </ion-card>
@@ -43,7 +43,7 @@
           <h6>Client Intersted</h6>
         </ion-row>
         <ion-radio-group formControlName="clientinterest" [compareWith]="noninterestedcompareWith"
-          (ionChange)="notInteresthandleChange($event)">
+          (ionChange)="onclientinterestchange($event)">
           <ion-row>
             <ion-col size="6" *ngFor="let options of yesOrnoOptions; trackBy: notInteresttrackItems">
               <ion-item>
@@ -65,9 +65,11 @@
                     <ion-select-option value="PLOT">Plot</ion-select-option>
                     <ion-select-option value="FLAT">Flat</ion-select-option>
                     <ion-select-option value="COMMERCIAL">Commercial Space</ion-select-option>
-
                   </ion-select>
                 </ion-item>
+                <small class="colorred" *ngIf="f['propertyType'].touched && f['propertyType'].errors">
+                  <span>Required*</span>
+                </small>
               </ion-col>
             </ion-row>
             <ion-row *ngIf="selectedPropertyType != null">
@@ -82,6 +84,9 @@
                     <ion-select-option value="HMDA">HMDA</ion-select-option>
                   </ion-select>
                 </ion-item>
+                <small class="colorred" *ngIf="f['subPropertyType'].touched && f['subPropertyType'].errors">
+                  <span>Required*</span>
+                </small>
               </ion-col>
               <ion-col size="8" class="content-css" style="margin: auto;" *ngIf="selectedPropertyType == 'FLAT'">
                 <ion-item>
@@ -91,6 +96,9 @@
                     <ion-select-option value="Resale">Resale</ion-select-option>
                   </ion-select>
                 </ion-item>
+                <small class="colorred" *ngIf="f['subPropertyType'].touched && f['subPropertyType'].errors">
+                  <span>Required*</span>
+                </small>
               </ion-col>
               <ion-col size="8" class="content-css" style="margin: auto;" *ngIf="selectedPropertyType == 'COMMERCIAL'">
                 <ion-item>
@@ -99,14 +107,16 @@
                     <ion-select-option value="Retail">Retail</ion-select-option>
                   </ion-select>
                 </ion-item>
+                <small class="colorred" *ngIf="f['subPropertyType'].touched && f['subPropertyType'].errors">
+                  <span>Required*</span>
+                </small>
               </ion-col>
             </ion-row>
           </ion-card>
         </ng-container>
         <ng-container *ngIf="coldcallForm.controls.clientinterest.value === 'No'">
           <ion-card class="shadow-all">
-            <ion-radio-group formControlName="nointerestedVal" [compareWith]="noninterestedcompareWith"
-              (ionChange)="notInteresthandleChange($event)">
+            <ion-radio-group formControlName="nointerestedVal" [compareWith]="noninterestedcompareWith">
               <ion-row>
                 <ion-col size="12" *ngFor="let nonint of notLookingOptions; trackBy: notInteresttrackItems">
                   <ion-item>
@@ -132,12 +142,24 @@
             <h6>Interested Projects</h6>
           </ion-row>
           <ion-row>
-            <ion-chip color="primary" *ngFor="let project of selectedProjects">
+            <ion-chip color="primary" *ngFor="let project of coldcallForm.controls.enterProject.value">
               <ion-label>{{project}}</ion-label>
-              <ion-icon name="close" (click)="removeproject(project)"></ion-icon>
+              <!-- <ion-icon name="close" (click)="removeproject(project)"></ion-icon> -->
             </ion-chip>
+            </ion-row>
+            <ion-row>
+            <ion-item style="width: 50%;">
+              <ion-select  formControlName="enterProject" placeholder="Add Projects" [multiple]="true">
+                <ion-select-option value="Lake View">Lake View</ion-select-option>
+                <ion-select-option value="Sky View">Sky View</ion-select-option>
+                <ion-select-option value="AdobeView">AdobeView</ion-select-option>
+                <ion-select-option value="sumadura">sumadura</ion-select-option>
+                <ion-select-option value="Ace avani">Ace avani</ion-select-option>
+                <ion-select-option value="Ace">Ace</ion-select-option>
+              </ion-select>
+            </ion-item>
           </ion-row>
-          <ion-row>
+          <!-- <ion-row>
             <ion-list>
               <ion-item>
                 <ion-input label="Add more Projects" formControlName="enterProject" labelPlacement="floating">
@@ -146,7 +168,7 @@
                 </ion-button>
               </ion-item>
             </ion-list>
-          </ion-row>
+          </ion-row> -->
         </ion-card>
         <ion-card class="shadow-all">
           <ion-row class="cardheaderalignment">
@@ -159,6 +181,9 @@
                   <ion-radio [value]="leadStatus" justify="start" labelPlacement="end">{{ leadStatus.name }}</ion-radio>
                 </ion-item>
               </ion-col>
+              <small class="colorred" *ngIf="f['clienttype'].touched && f['clienttype'].errors">
+                <span>Please Select the Required Option*</span>
+              </small>
             </ion-row>
           </ion-radio-group>
         </ion-card>
@@ -174,6 +199,9 @@
                   <ion-radio [value]="planitem" justify="start" labelPlacement="end">{{ planitem.name }}</ion-radio>
                 </ion-item>
               </ion-col>
+              <small class="colorred" *ngIf="f['planitemstype'].touched && f['planitemstype'].errors">
+                <span>Please Select the Required Option*</span>
+              </small>
             </ion-row>
           </ion-radio-group>
         </ion-card>
@@ -192,10 +220,13 @@
                   <ion-select-option value="DEALS_OFFERED">Deal Offered</ion-select-option>
                   <ion-select-option value="CLOSURE">Closure</ion-select-option>
                   <ion-select-option value="CONVERSION">Conversion</ion-select-option>
-
                 </ion-select>
               </ion-item>
+              <small class="colorred" *ngIf="f['salesPipeline'].touched && f['salesPipeline'].errors">
+                <span>Please Select the Required Option*</span>
+              </small>
             </ion-col>
+           
           </ion-row>
         </ion-card>
       </ng-container>
@@ -204,7 +235,7 @@
           <h6>Cross Segment Leads</h6>
         </ion-row>
         <ion-radio-group formControlName="crosssegmentleads" [compareWith]="noninterestedcompareWith"
-          (ionChange)="notInteresthandleChange($event)">
+          >
           <ion-row>
             <ion-col size="6" *ngFor="let options of yesOrnoOptions; trackBy: notInteresttrackItems">
               <ion-item>

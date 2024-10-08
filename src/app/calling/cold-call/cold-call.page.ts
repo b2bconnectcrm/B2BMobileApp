@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
+import { debounceTime } from 'rxjs';
 import { CallingService } from 'src/app/services/calling.service';
 
 @Component({
@@ -10,9 +11,7 @@ import { CallingService } from 'src/app/services/calling.service';
   styleUrls: ['./cold-call.page.scss'],
 })
 export class ColdCallPage implements OnInit {
-
-  selectedClientOption: any;
-  selectedCrossSegmentOption: any;
+  
   notLookingOptions: any = [{
     "label": "Irrelevant Location",
     "value": "IrrelevantLocation"
@@ -50,12 +49,9 @@ export class ColdCallPage implements OnInit {
     this.coldcallForm = this.fb.group({
       firstName: ["", Validators.required],
       email: ["", [Validators.required, Validators.email]],
-      mobile: ["", Validators.required],
-      clientInterested: [false],
-      crossSegmentLeads: [false],
+      mobile: ["", Validators.required],     
       comments: [""],
       notINterestedStatus: [""],
-
       properties:[null],
       propertyType: [""],
       subPropertyType: [""],
@@ -63,8 +59,7 @@ export class ColdCallPage implements OnInit {
       crossSegments: [""],
       leadStatus:[""],
       plantodo: [""],
-      clientType: [""],
-     
+      clientType: [""],     
       clientinterest: [""],
       crosssegmentleads: [""],
       propertyLead: [false],
@@ -127,27 +122,8 @@ export class ColdCallPage implements OnInit {
 
   ngOnInit() {
     this.getAllProjects();
-   
-  }
-  onclientbuttonclick(selectedbutton: any) {
-    if (this.selectedClientOption == selectedbutton) {
-      this.selectedClientOption = '';
-      return
-    }
-    this.selectedClientOption = selectedbutton;
-
-    console.log(this.selectedClientOption)
-  }
-  onCrossSegmentbuttonclick(selectedcrosssegmentbutton: any) {
-    if (this.selectedCrossSegmentOption == selectedcrosssegmentbutton) {
-      this.selectedCrossSegmentOption = '';
-      return
-    }
-    this.selectedCrossSegmentOption = selectedcrosssegmentbutton;
-    console.log(this.selectedClientOption)
-  }
-
-
+  }  
+  
   callNow() {
     if (this.mobileNumber && this.mobileNumber.length == 10) {
       this.callNumber.callNumber(this.mobileNumber, true)
@@ -169,15 +145,6 @@ export class ColdCallPage implements OnInit {
     }
   }
 
-  saveLeadDetails() {
-    console.log(this.coldcallForm.value)
-    this.callingService.createLeadDetails(this.coldcallForm.value).subscribe((data: any) => {
-      console.log("success")
-      this.router.navigateByUrl("/home");
-    }, (error: any) => {
-      console.log("error")
-    })
-  }
 
   getAllProjects() {
     console.log(this.coldcallForm.value)
@@ -207,23 +174,55 @@ export class ColdCallPage implements OnInit {
     return o1 === o2;
   }
 
-
+  onclientinterestchange(ev: any) { 
+    if(ev.target.value == "Yes"){    
+      let v = Validators.required;
+      this.SetValidations(v)
+    }else{      
+      this.ClearValidation();
+    }
+    this.updateFormGroup();
+  }
   notInteresthandleChange(ev: any) {
     console.log('Current value:', JSON.stringify(ev.target.value));
     let crossSegmentLeads =ev.target.value;
     if(crossSegmentLeads == "Yes"){
       this.coldcallForm.patchValue({
         crossSegmentLeads : true
-      })
+      });
     }else{
       this.coldcallForm.patchValue({
         crossSegmentLeads : false
-      })
+      });     
     }
-   
+    this.updateFormGroup();
   }
-
-
+  SetValidations(condition:any){
+    this.coldcallForm.get('propertyType').setValidators(condition);
+    this.coldcallForm.get('subPropertyType').setValidators(condition);
+    this.coldcallForm.get('clienttype').setValidators(condition);
+    this.coldcallForm.get('planitemstype').setValidators(condition);
+    this.coldcallForm.get('salesPipeline').setValidators(condition);    
+    this.updateFormGroup();
+  }
+  ClearValidation(){
+    this.coldcallForm.get('propertyType').clearValidators();
+    this.coldcallForm.get('subPropertyType').clearValidators();
+    this.coldcallForm.get('clienttype').clearValidators();
+    this.coldcallForm.get('planitemstype').clearValidators();
+    this.coldcallForm.get('salesPipeline').clearValidators();   
+    this.coldcallForm.patchValue({
+      propertyType:"",
+      subPropertyType:"",
+      clienttype:"",
+      planitemstype:"",
+      salesPipeline:""           
+    });
+    this.updateFormGroup();
+  }
+  updateFormGroup(){
+    this.coldcallForm.updateValueAndValidity();
+  }
   notInteresttrackItems(index: number, item: any) {
     return item;
   }
@@ -249,18 +248,25 @@ export class ColdCallPage implements OnInit {
   }
   removeproject(val: any) {
     this.selectedProjects = this.selectedProjects.filter((x: any) => x != val)
+  } 
+  get f(): { [key: string]: AbstractControl } {
+    return this.coldcallForm.controls;
   }
-  get name() {
-    return this.coldcallForm.get('firstName');
-  }
-
-  get email() {
-    return this.coldcallForm.get('email');
-  }
-
   onSelectPropertyChange(event: any){
     console.log('Current value:', JSON.stringify(event.target.value));
     this.selectedPropertyType= event.target.value;
+  }  
+  
+  saveLeadDetails() {
+    console.log(this.coldcallForm)
+    console.log(this.coldcallForm.value);
+    this.coldcallForm.markAllAsTouched();
+    this.updateFormGroup();
+    this.callingService.createLeadDetails(this.coldcallForm.value).subscribe((data: any) => {
+      console.log("success")
+      this.router.navigateByUrl("/home");
+    }, (error: any) => {
+      console.log("error")
+    })
   }
-
 }
