@@ -42,10 +42,9 @@
         <ion-row class="cardheaderalignment">
           <h6>Client Intersted</h6>
         </ion-row>
-        <ion-radio-group formControlName="clientinterest" [compareWith]="noninterestedcompareWith"
-          (ionChange)="onclientinterestchange($event)">
+        <ion-radio-group formControlName="clientinterest"  (ionChange)="onclientinterestchange($event)">
           <ion-row>
-            <ion-col size="6" *ngFor="let options of yesOrnoOptions; trackBy: notInteresttrackItems">
+            <ion-col size="6" *ngFor="let options of yesOrnoOptions;">
               <ion-item>
                 <ion-radio [value]="options" justify="start" labelPlacement="end">{{ options }}</ion-radio>
               </ion-item>
@@ -116,9 +115,9 @@
         </ng-container>
         <ng-container *ngIf="coldcallForm.controls.clientinterest.value === 'No'">
           <ion-card class="shadow-all">
-            <ion-radio-group formControlName="nointerestedVal" [compareWith]="noninterestedcompareWith">
+            <ion-radio-group formControlName="nointerestedVal">
               <ion-row>
-                <ion-col size="12" *ngFor="let nonint of notLookingOptions; trackBy: notInteresttrackItems">
+                <ion-col size="12" *ngFor="let nonint of notLookingOptions;">
                   <ion-item>
                     <ion-radio [value]="nonint.value" justify="start" labelPlacement="end">{{ nonint.label }}
                     </ion-radio>
@@ -174,11 +173,11 @@
           <ion-row class="cardheaderalignment">
             <h6>Client</h6>
           </ion-row>
-          <ion-radio-group formControlName="clienttype" [compareWith]="compareWith" (ionChange)="handleChange($event)">
+          <ion-radio-group formControlName="clienttype">
             <ion-row>
-              <ion-col size="6" *ngFor="let leadStatus of leadStatusList; trackBy: trackItems">
+              <ion-col size="6" *ngFor="let leadStatus of leadStatusList;">
                 <ion-item>
-                  <ion-radio [value]="leadStatus" justify="start" labelPlacement="end">{{ leadStatus.name }}</ion-radio>
+                  <ion-radio [value]="leadStatus.name" justify="start" labelPlacement="end">{{ leadStatus.name }}</ion-radio>
                 </ion-item>
               </ion-col>
               <small class="colorred" *ngIf="f['clienttype'].touched && f['clienttype'].errors">
@@ -191,12 +190,11 @@
           <ion-row class="cardheaderalignment">
             <h6>Plan to do</h6>
           </ion-row>
-          <ion-radio-group formControlName="planitemstype" [compareWith]="plantodocompare"
-            (ionChange)="plantodohandleChange($event)">
+          <ion-radio-group formControlName="planitemstype">
             <ion-row>
-              <ion-col size="6" *ngFor="let planitem of plantoDotypes; trackBy: plantodoitemstracking">
+              <ion-col size="6" *ngFor="let planitem of plantoDotypes;">
                 <ion-item>
-                  <ion-radio [value]="planitem" justify="start" labelPlacement="end">{{ planitem.name }}</ion-radio>
+                  <ion-radio [value]="planitem.name" justify="start" labelPlacement="end">{{ planitem.name }}</ion-radio>
                 </ion-item>
               </ion-col>
               <small class="colorred" *ngIf="f['planitemstype'].touched && f['planitemstype'].errors">
@@ -234,10 +232,9 @@
         <ion-row class="cardheaderalignment">
           <h6>Cross Segment Leads</h6>
         </ion-row>
-        <ion-radio-group formControlName="crosssegmentleads" [compareWith]="noninterestedcompareWith"
-          >
+        <ion-radio-group formControlName="crosssegmentleads">
           <ion-row>
-            <ion-col size="6" *ngFor="let options of yesOrnoOptions; trackBy: notInteresttrackItems">
+            <ion-col size="6" *ngFor="let options of yesOrnoOptions;">
               <ion-item>
                 <ion-radio [value]="options" justify="start" labelPlacement="end">{{ options }}</ion-radio>
               </ion-item>

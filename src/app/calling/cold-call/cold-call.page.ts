@@ -159,21 +159,6 @@ export class ColdCallPage implements OnInit {
     })
   }
 
-  compareWith(o1: any, o2: any) {
-    return o1.id === o2.id;
-  }
-
-  handleChange(ev: any) {
-    console.log('Current value:', JSON.stringify(ev.target.value));
-    let clientType =ev.target.value;
-    this.coldcallForm.patchValue({
-      leadStatus : clientType?.name
-    })
-  }
-  noninterestedcompareWith(o1: any, o2: any) {
-    return o1 === o2;
-  }
-
   onclientinterestchange(ev: any) { 
     if(ev.target.value == "Yes"){    
       let v = Validators.required;
@@ -210,25 +195,7 @@ export class ColdCallPage implements OnInit {
   updateFormGroup(){
     this.coldcallForm.updateValueAndValidity();
   }
-  notInteresttrackItems(index: number, item: any) {
-    return item;
-  }
-  trackItems(index: number, item: any) {
-    return item.id;
-  }
-  plantodohandleChange(ev: any) {
-    console.log('Current value:', JSON.stringify(ev.target.value));
-    let plantodo = ev.target.value;
-    this.coldcallForm.patchValue({
-      plantodo : plantodo?.value
-    })
-  }
-  plantodocompare(o1: any, o2: any) {
-    return o1.id === o2.id;
-  }
-  plantodoitemstracking(index: number, item: any) {
-    return item.id;
-  }
+  
   addProject() {
     this.selectedProjects.push(this.enterProject);
     this.enterProject = '';
