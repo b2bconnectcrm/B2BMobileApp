@@ -173,14 +173,14 @@
           <ion-row class="cardheaderalignment">
             <h6>Client</h6>
           </ion-row>
-          <ion-radio-group formControlName="clienttype">
+          <ion-radio-group formControlName="leadStatus">
             <ion-row>
               <ion-col size="6" *ngFor="let leadStatus of leadStatusList;">
                 <ion-item>
                   <ion-radio [value]="leadStatus.name" justify="start" labelPlacement="end">{{ leadStatus.name }}</ion-radio>
                 </ion-item>
               </ion-col>
-              <small class="colorred" *ngIf="f['clienttype'].touched && f['clienttype'].errors">
+              <small class="colorred" *ngIf="f['leadStatus'].touched && f['leadStatus'].errors">
                 <span>Please Select the Required Option*</span>
               </small>
             </ion-row>
@@ -190,14 +190,14 @@
           <ion-row class="cardheaderalignment">
             <h6>Plan to do</h6>
           </ion-row>
-          <ion-radio-group formControlName="planitemstype">
+          <ion-radio-group formControlName="plantodo">
             <ion-row>
               <ion-col size="6" *ngFor="let planitem of plantoDotypes;">
                 <ion-item>
                   <ion-radio [value]="planitem.name" justify="start" labelPlacement="end">{{ planitem.name }}</ion-radio>
                 </ion-item>
               </ion-col>
-              <small class="colorred" *ngIf="f['planitemstype'].touched && f['planitemstype'].errors">
+              <small class="colorred" *ngIf="f['plantodo'].touched && f['plantodo'].errors">
                 <span>Please Select the Required Option*</span>
               </small>
             </ion-row>

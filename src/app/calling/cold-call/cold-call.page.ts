@@ -58,15 +58,12 @@ export class ColdCallPage implements OnInit {
       salesPipeline: [""],
       crossSegments: [""],
       leadStatus:[""],
-      plantodo: [""],
-      clientType: [""],     
+      plantodo: [""],        
       clientinterest: [""],
       crosssegmentleads: [""],
       propertyLead: [false],
       enterProject: [""],
-      propertyLeadOptions: [''],
-      clienttype: [""],
-      planitemstype: [""],
+      propertyLeadOptions: [''],      
       nointerestedVal: [""]
     });
     this.coldcallForm.updateValueAndValidity();
@@ -172,22 +169,22 @@ export class ColdCallPage implements OnInit {
   SetValidations(condition:any){
     this.coldcallForm.get('propertyType').setValidators(condition);
     this.coldcallForm.get('subPropertyType').setValidators(condition);
-    this.coldcallForm.get('clienttype').setValidators(condition);
-    this.coldcallForm.get('planitemstype').setValidators(condition);
+    this.coldcallForm.get('leadStatus').setValidators(condition);
+    this.coldcallForm.get('plantodo').setValidators(condition);
     this.coldcallForm.get('salesPipeline').setValidators(condition);    
     this.updateFormGroup();
   }
   ClearValidation(){
     this.coldcallForm.get('propertyType').clearValidators();
     this.coldcallForm.get('subPropertyType').clearValidators();
-    this.coldcallForm.get('clienttype').clearValidators();
-    this.coldcallForm.get('planitemstype').clearValidators();
+    this.coldcallForm.get('leadStatus').clearValidators();
+    this.coldcallForm.get('plantodo').clearValidators();
     this.coldcallForm.get('salesPipeline').clearValidators();   
     this.coldcallForm.patchValue({
       propertyType:"",
       subPropertyType:"",
-      clienttype:"",
-      planitemstype:"",
+      leadStatus:"",
+      plantodo:"",
       salesPipeline:""           
     });
     this.updateFormGroup();
