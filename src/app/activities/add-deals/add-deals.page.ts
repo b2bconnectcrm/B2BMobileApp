@@ -11,12 +11,12 @@ import { DealsService } from 'src/app/services/deals.service';
 export class AddDealsPage implements OnInit {
   dealsForm: FormGroup | any;
   stagedValues:any=[
-    {value:'STARTED',displayValue:'started'},
+    {value:'STARTED',displayValue:'Started'},
     {value:'DOWNPAYMENT_STAGE',displayValue:'Downpayment Stage'},
     {value:'NEGOTIATION',displayValue:'Negotiation'},
   ];
   pipelineValues:any=[
-    {value:'OPEN',displayValue:'open'},
+    {value:'OPEN',displayValue:'Open'},
     {value:'COLD_CALLING_MEETING',displayValue:'Cold Calling/Meeting'},
     {value:'PROPOSAL',displayValue:'Proposal'},
     {value:'NEGOTIATION',displayValue:'Negotiation'},
