@@ -258,10 +258,18 @@
   </ng-container>
 
   <ng-container *ngIf="callButtonEnabled">
-    <ion-button (click)="callNow()">Call Now</ion-button>
-    <ion-item>
-      <ion-label position="floating">Enter Mobile Number</ion-label>
-      <ion-input type="tel" [(ngModel)]="mobileNumber" maxlength="10" minlength="10"></ion-input>
-    </ion-item>
+    <!-- <ion-button >Call Now</ion-button> -->
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Enter Mobile Number</ion-label>
+          <ion-input type="tel" [(ngModel)]="mobileNumber" maxlength="10" minlength="10"></ion-input>       
+        </ion-item>
+      </ion-col>
+      <ion-col *ngIf="mobileNumber !== '' && mobileNumber.length == 10" size="3" class="ion-text-right ion-align-self-center">
+        <ion-icon (click)="callNow()" name="call" color="success" size="large" disabled></ion-icon>
+      </ion-col>
+    </ion-row>
+   
   </ng-container>
 </ion-content>

@@ -17,4 +17,10 @@ export class AppConstants {
     }
 
     
+    public static POST_CREATE_DEAL() {
+        return `${baseUrl}` + "deals/add";
+    }
+    public static GET_ALL_Deals() {
+        return `${baseUrl}` + "deals/all";
+    }
 }

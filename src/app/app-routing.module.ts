@@ -157,6 +157,14 @@ const routes: Routes = [
     path: 'hot-updates',
     loadChildren: () => import('./activities/hot-updates/hot-updates.module').then( m => m.HotUpdatesPageModule)
   },
+  {
+    path: 'deals',
+    loadChildren: () => import('./activities/deals/deals.module').then( m => m.DealsPageModule)
+  },
+  {
+    path: 'add-deals',
+    loadChildren: () => import('./activities/add-deals/add-deals.module').then( m => m.AddDealsPageModule)
+  },
   // end activities
   // start projects
   {
@@ -185,6 +193,16 @@ const routes: Routes = [
     path: 'cp-submitted-leads',
     loadChildren: () => import('./channelPartners/cp-submitted-leads/cp-submitted-leads.module').then( m => m.CpSubmittedLeadsPageModule)
   },
+  {
+    path: 'deals',
+    loadChildren: () => import('./activities/deals/deals.module').then( m => m.DealsPageModule)
+  },
+  {
+    path: 'add-deals',
+    loadChildren: () => import('./activities/add-deals/add-deals.module').then( m => m.AddDealsPageModule)
+  },
+
+
   
  
    // end channel partners

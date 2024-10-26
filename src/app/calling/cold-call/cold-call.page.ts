@@ -41,7 +41,7 @@ export class ColdCallPage implements OnInit {
   callButtonEnabled: boolean = true;
   yesOrnoOptions: any = ['Yes', 'No'];
 
-  mobileNumber: any;
+  mobileNumber: any='';
   selectedPropertyType: any;
   constructor(private callNumber: CallNumber, private fb: FormBuilder, private router: Router,
      private callingService: CallingService) {
