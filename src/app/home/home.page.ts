@@ -42,7 +42,9 @@ export class HomePage implements OnInit {
     { name: 'call', label: 'Call', url: '/upcoming'  },
     { name: 'person', label: 'Site Visit Sch`d', url: '/site-visit-schedules'  },
     { name: 'call', label: 'Meetings Sch`d' , url: '/meeting-schedules' },
-    { name: 'mail', label: 'Hot Updates' , url: '/hot-updates' }
+    { name: 'mail', label: 'Hot Updates' , url: '/hot-updates' },
+    { name: 'people', label: 'Deals' , url: '/deals' },
+    { name: 'people', label: 'Add Deals' , url: '/add-deals' },
   ];
 
   projects= [
