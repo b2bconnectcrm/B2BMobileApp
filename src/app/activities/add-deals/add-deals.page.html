@@ -65,27 +65,30 @@
         <span>Required*</span>
       </small> 
       <ion-item>
-        <ion-input label="Phone" formControlName="phone" labelPlacement="floating"></ion-input>
-        <small class="colorred" *ngIf="f['phone'].touched && f['phone'].errors">
-          <span>Required*</span>
-        </small> 
-      </ion-item>      
+        <ion-input type="tel" maxlength="10" minlength="10" label="Phone" formControlName="phone" labelPlacement="floating"></ion-input>        
+      </ion-item> 
+      <small class="colorred" *ngIf="f['phone'].touched && f['phone'].errors">
+        <span>Required*</span>
+      </small>      
       <ion-item>
         <ion-select label="Project Type"  formControlName="projectType" label-placement="floating">
           <ion-select-option *ngFor="let items of projectTypeValues" [value]="items.value">{{items.displayValue}}</ion-select-option>         
         </ion-select>
       </ion-item>
+      <small class="colorred" *ngIf="f['projectType'].touched && f['projectType'].errors">
+        <span>Required*</span>
+      </small>
       <ion-item>
-        <ion-input label="PAN Card No" formControlName="pancardNumber" labelPlacement="floating"></ion-input>
-        <small class="colorred" *ngIf="f['pancardNumber'].touched && f['pancardNumber'].errors">
-          <span>Required*</span>
-        </small> 
+        <ion-input label="PAN Card No" formControlName="pancardNumber" labelPlacement="floating"></ion-input>        
       </ion-item>
+      <small class="colorred" *ngIf="f['pancardNumber'].touched && f['pancardNumber'].errors">
+        <span>Required*</span>
+      </small> 
       <ion-item>
         <ion-select label="Unit Status"  formControlName="unitStatus" label-placement="floating">
           <ion-select-option *ngFor="let items of UnitStatusValues" [value]="items.value">{{items.displayValue}}</ion-select-option>         
         </ion-select>
-      </ion-item>      
+      </ion-item> 
       <small class="colorred" *ngIf="f['unitStatus'].touched && f['unitStatus'].errors">
         <span>Required*</span>
       </small>
@@ -96,6 +99,6 @@
 </form>
   <ion-row class="ion-padding buttonPosition">
     <!-- [disabled]="this.dealsForm.invalid" -->
-    <ion-button  (click)="saveDetails()" size="small">SUBMIT</ion-button>
+    <ion-button  (click)="saveDetails()"  [disabled]="this.dealsForm.invalid" size="small">SUBMIT</ion-button>
   </ion-row>
 </ion-content>
