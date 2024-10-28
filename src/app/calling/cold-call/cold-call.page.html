@@ -206,6 +206,24 @@
         <ion-card class="shadow-all">
           <ion-row>
             <ion-col size="4" class="content-css" style="margin: auto;">
+              <ion-lable>Source</ion-lable>
+            </ion-col>
+            <ion-col size="8" class="content-css" style="margin: auto;">
+              <ion-item>
+                <ion-select formControlName="leadSource" label="Select" label-placement="floating">
+                  <ion-select-option *ngFor="let source of sources" [value]="source.value">{{source.name}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <small class="colorred" *ngIf="f['leadSource'].touched && f['leadSource'].errors">
+                <span>Please Select the Required Option*</span>
+              </small>
+            </ion-col>
+           
+          </ion-row>
+        </ion-card>
+        <ion-card class="shadow-all">
+          <ion-row>
+            <ion-col size="4" class="content-css" style="margin: auto;">
               <ion-lable>Sales Pipeline</ion-lable>
             </ion-col>
             <ion-col size="8" class="content-css" style="margin: auto;">

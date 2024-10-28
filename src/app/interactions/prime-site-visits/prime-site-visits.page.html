@@ -57,7 +57,7 @@
   <ion-searchbar  placeholder="Search by project/Client Name" [debounce]="1000" (ionInput)="handleInput($event)"></ion-searchbar>
  
   <ion-card *ngFor="let item of results">
-    <ion-grid>
+    <ion-grid (click)="gotoView()">
       <ion-row>
         <ion-col size="9">
           <ion-card-content>

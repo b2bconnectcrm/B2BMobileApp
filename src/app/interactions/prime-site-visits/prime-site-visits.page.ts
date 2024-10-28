@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonDatetime } from '@ionic/angular';
 import { empty } from 'rxjs';
 
@@ -31,7 +32,7 @@ public  data: any = [
   isDatePickerOpen = false;
 
   public results = [...this.data];
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -78,6 +79,10 @@ public  data: any = [
     this.closeStartDatePicker();
   }
 
+
+  gotoView(){
+    this.router.navigateByUrl('/prime-site-visits/view-prime-sites')
+  }
 
   
 }

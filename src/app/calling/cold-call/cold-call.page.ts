@@ -43,6 +43,29 @@ export class ColdCallPage implements OnInit {
 
   mobileNumber: any='';
   selectedPropertyType: any;
+  sources: any=[
+    {
+    "value":"Company_Lead",
+    "name": "Company Lead"
+  },
+  {
+    "value":"Own_Lead",
+    "name": "Own Lead"
+  },
+  {
+    "value":"Shared_Lead",
+    "name": "Shared Lead"
+  },
+  {
+    "value":"Cold_Call_Lead",
+    "name": "Cold Call Lead"
+  },
+  {
+    "value":"CP_Lead",
+    "name": "CP Lead"
+  }
+
+  ]
   constructor(private callNumber: CallNumber, private fb: FormBuilder, private router: Router,
      private callingService: CallingService) {
 
@@ -56,6 +79,7 @@ export class ColdCallPage implements OnInit {
       propertyType: [""],
       subPropertyType: [""],
       salesPipeline: [""],
+      leadSource: [""],
       crossSegments: [""],
       leadStatus:[""],
       plantodo: [""],        
@@ -171,6 +195,7 @@ export class ColdCallPage implements OnInit {
     this.coldcallForm.get('subPropertyType').setValidators(condition);
     this.coldcallForm.get('leadStatus').setValidators(condition);
     this.coldcallForm.get('plantodo').setValidators(condition);
+    this.coldcallForm.get('leadSource').setValidators(condition);   
     this.coldcallForm.get('salesPipeline').setValidators(condition);    
     this.updateFormGroup();
   }
@@ -179,6 +204,7 @@ export class ColdCallPage implements OnInit {
     this.coldcallForm.get('subPropertyType').clearValidators();
     this.coldcallForm.get('leadStatus').clearValidators();
     this.coldcallForm.get('plantodo').clearValidators();
+    this.coldcallForm.get('leadSource').clearValidators();   
     this.coldcallForm.get('salesPipeline').clearValidators();   
     this.coldcallForm.patchValue({
       propertyType:"",

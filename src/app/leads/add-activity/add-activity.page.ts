@@ -30,6 +30,31 @@ export class AddActivityPage implements OnInit {
     }
   ];
   public results = [...this.data];
+
+  sources: any=[
+    {
+    "value":"Company_Lead",
+    "name": "Company Lead"
+  },
+  {
+    "value":"Own_Lead",
+    "name": "Own Lead"
+  },
+  {
+    "value":"Shared_Lead",
+    "name": "Shared Lead"
+  },
+  {
+    "value":"Cold_Call_Lead",
+    "name": "Cold Call Lead"
+  },
+  {
+    "value":"CP_Lead",
+    "name": "CP Lead"
+  }
+
+  ]
+
   constructor() { }
 
   ngOnInit() {

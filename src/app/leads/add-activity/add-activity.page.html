@@ -213,6 +213,37 @@
     <ion-card-content>
       <ion-item>
         <ion-label>
+          Source
+        </ion-label>
+      </ion-item>
+      <ion-select label="Select Source" label-placement="stacked" mode="md">
+        <ion-select-option *ngFor="let source of sources" [value]="source.value">{{source.name}}</ion-select-option>
+        <ion-select-option value="driver">Driver</ion-select-option>
+      </ion-select>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          Sales Pipeline
+        </ion-label>
+      </ion-item>
+      <ion-select label="Select" label-placement="floating">
+        <ion-select-option value="OPEN">Open</ion-select-option>
+        <ion-select-option value="COLD_CALLING_MEETING">Cold Calling/Meeting</ion-select-option>
+        <ion-select-option value="PROPOSAL">Proposal</ion-select-option>
+        <ion-select-option value="NEGOTIATION">Negotiation</ion-select-option>
+        <ion-select-option value="DEALS_OFFERED">Deal Offered</ion-select-option>
+        <ion-select-option value="CLOSURE">Closure</ion-select-option>
+        <ion-select-option value="CONVERSION">Conversion</ion-select-option>
+      </ion-select>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
           Cross Segment Leads
         </ion-label>
       </ion-item>

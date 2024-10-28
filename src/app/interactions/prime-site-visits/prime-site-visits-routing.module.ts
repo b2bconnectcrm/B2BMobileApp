@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: PrimeSiteVisitsPage
+  },  {
+    path: 'view-prime-sites',
+    loadChildren: () => import('./view-prime-sites/view-prime-sites.module').then( m => m.ViewPrimeSitesPageModule)
   }
+
 ];
 
 @NgModule({
