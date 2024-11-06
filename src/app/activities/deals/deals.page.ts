@@ -9,130 +9,17 @@ import { DealsService } from 'src/app/services/deals.service';
   styleUrls: ['./deals.page.scss'],
 })
 export class DealsPage implements OnInit {
-dummyresponse:any=[
-  {
-    "id": 1,
-    "dealName": "fdfgdf",
-    "clientName": "345345",
-    "accountName": "string",
-    "stage": "STARTED",
-    "unitStatus": null,
-    "pancardFilePath": "string",
-    "pancardNumber": "string",
-    "amount": 0,
-    "forcastCategory": "string",
-    "commissionPercent": "string",
-    "closingDate": "2024-10-26",
-    "phone": "string",
-    "projectType": null,
-    "subProjectType": "string",
-    "referredBy": "string",
-    "employeeId": null,
-    "leadId": null,
-    "employeeDto": null,
-    "leadDto": null,
-    "salesPipeline": null
-  },
-  {
-    "id": 2,
-    "dealName": "dfgfdh",
-    "clientName": "fghfdghdf",
-    "accountName": "string",
-    "stage": "STARTED",
-    "unitStatus": null,
-    "pancardFilePath": "string",
-    "pancardNumber": "string",
-    "amount": 0,
-    "forcastCategory": null,
-    "commissionPercent": "string",
-    "closingDate": "2024-10-26",
-    "phone": "string",
-    "projectType": null,
-    "subProjectType": null,
-    "referredBy": null,
-    "employeeId": null,
-    "leadId": null,
-    "employeeDto": null,
-    "leadDto": null,
-    "salesPipeline": null
-  },
-  {
-    "id": 3,
-    "dealName": "testt",
-    "clientName": "test",
-    "accountName": "test",
-    "stage": "STARTED",
-    "unitStatus": null,
-    "pancardFilePath": null,
-    "pancardNumber": "tyretyfghf",
-    "amount": 12,
-    "forcastCategory": null,
-    "commissionPercent": "12",
-    "closingDate": "2024-10-26",
-    "phone": "5645785675467",
-    "projectType": null,
-    "subProjectType": null,
-    "referredBy": null,
-    "employeeId": null,
-    "leadId": null,
-    "employeeDto": null,
-    "leadDto": null,
-    "salesPipeline": null
-  },
-  {
-    "id": 4,
-    "dealName": "test1",
-    "clientName": "test2",
-    "accountName": "test2",
-    "stage": "NEGOTIATION",
-    "unitStatus": null,
-    "pancardFilePath": null,
-    "pancardNumber": "9875644",
-    "amount": 12,
-    "forcastCategory": null,
-    "commissionPercent": "12",
-    "closingDate": "2024-10-26",
-    "phone": "9876543211",
-    "projectType": null,
-    "subProjectType": null,
-    "referredBy": null,
-    "employeeId": null,
-    "leadId": null,
-    "employeeDto": null,
-    "leadDto": null,
-    "salesPipeline": null
-  },
-  {
-    "id": 5,
-    "dealName": "test4",
-    "clientName": "test4",
-    "accountName": "test4",
-    "stage": "STARTED",
-    "unitStatus": null,
-    "pancardFilePath": null,
-    "pancardNumber": "",
-    "amount": null,
-    "forcastCategory": null,
-    "commissionPercent": "",
-    "closingDate": null,
-    "phone": "",
-    "projectType": null,
-    "subProjectType": null,
-    "referredBy": null,
-    "employeeId": null,
-    "leadId": null,
-    "employeeDto": null,
-    "leadDto": null,
-    "salesPipeline": null
-  }
-];
-dealsData:any;
-  constructor(private router: Router,private deslaservice:DealsService,private navController:NavController) { }
+  dealsData: any;
+  constructor(private router: Router, private deslaservice: DealsService, private navController: NavController) { }
 
   ngOnInit() {
-    this.getDetails()
+    // this.getDetails()
   }
-  getDetails() {        
+
+  ionViewDidEnter() {
+    this.getDetails();
+  }
+  getDetails() {
     this.deslaservice.getDeals().subscribe((data: any) => {
       this.dealsData = data;
       console.log(data)
@@ -142,16 +29,16 @@ dealsData:any;
       console.log("error")
     })
   }
-  addDeals(val:any){ 
-    console.log(val)   
+  addDeals(val: any) {
+    console.log(val)
     this.router.navigate(['/add-deals'], { queryParams: { val } })
   }
-  edit(val:any){
+  edit(val: any) {
     console.log(val)
-    this.router.navigate(['/add-deals'], { queryParams: { val } })   
+    this.router.navigate(['/add-deals'], { queryParams: { val } })
   }
-  delete(val:any){
-    this.deslaservice.deleteDeals(val).subscribe(res=>{
+  delete(val: any) {
+    this.deslaservice.deleteDeals(val).subscribe(res => {
       this.getDetails();
     })
   }

@@ -119,7 +119,7 @@
             <span>Required*</span>
           </small>
           <ion-item>
-            <ion-input label="PAN Card No" formControlName="pancardNumber" labelPlacement="floating"></ion-input>
+            <ion-input label="PAN Card No" maxlength="10" formControlName="pancardNumber" labelPlacement="floating"></ion-input>
           </ion-item>
           <small class="colorred" *ngIf="f['pancardNumber'].touched && f['pancardNumber'].errors">
             <span>Required*</span>
