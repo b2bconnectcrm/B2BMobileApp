@@ -19,3 +19,13 @@
     padding-left: 18px;
     font-size: 10px !important;
  }
+
+
+ ion-list {
+  max-height: 200px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}

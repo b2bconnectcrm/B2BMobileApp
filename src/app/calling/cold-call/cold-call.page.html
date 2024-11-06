@@ -16,11 +16,11 @@
             <ion-list>
               <ion-item>
                 <ion-input type="text" formControlName="firstName" label="Name" labelPlacement="floating"></ion-input>
-              </ion-item>  
+              </ion-item>
             </ion-list>
-             <small class="colorred" *ngIf="f['firstName'].touched && f['firstName'].errors">
-                <span>Required*</span>
-              </small>
+            <small class="colorred" *ngIf="f['firstName'].touched && f['firstName'].errors">
+              <span>Required*</span>
+            </small>
           </ion-col>
         </ion-row>
       </ion-card>
@@ -30,7 +30,7 @@
             <ion-list>
               <ion-item>
                 <ion-input type="email" formControlName="email" label="Email" labelPlacement="floating"></ion-input>
-              </ion-item>  
+              </ion-item>
             </ion-list>
             <small class="colorred" *ngIf="f['email'].touched && f['email'].errors">
               <span>Required*</span>
@@ -42,16 +42,21 @@
         <ion-row class="cardheaderalignment">
           <h6>Client Intersted</h6>
         </ion-row>
-        <ion-radio-group formControlName="clientinterest"  (ionChange)="onclientinterestchange($event)">
+        <ion-radio-group formControlName="clientInterested" (ionChange)="onclientinterestchange($event)">
           <ion-row>
-            <ion-col size="6" *ngFor="let options of yesOrnoOptions;">
+            <ion-col size="6">
               <ion-item>
-                <ion-radio [value]="options" justify="start" labelPlacement="end">{{ options }}</ion-radio>
+                <ion-radio [value]="true" justify="start" labelPlacement="end">Yes </ion-radio>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item>
+                <ion-radio [value]="false" justify="start" labelPlacement="end"> No </ion-radio>
               </ion-item>
             </ion-col>
           </ion-row>
         </ion-radio-group>
-        <ng-container *ngIf="coldcallForm.controls.clientinterest.value === 'Yes'">
+        <ng-container *ngIf="coldcallForm.controls.clientInterested.value === true">
           <ion-card class="shadow-all">
             <ion-row>
               <ion-col size="4" class="content-css" style="margin: auto;">
@@ -113,9 +118,9 @@
             </ion-row>
           </ion-card>
         </ng-container>
-        <ng-container *ngIf="coldcallForm.controls.clientinterest.value === 'No'">
+        <ng-container *ngIf="coldcallForm.controls.clientInterested.value === false">
           <ion-card class="shadow-all">
-            <ion-radio-group formControlName="nointerestedVal">
+            <ion-radio-group formControlName="notINterestedStatus">
               <ion-row>
                 <ion-col size="12" *ngFor="let nonint of notLookingOptions;">
                   <ion-item>
@@ -135,29 +140,30 @@
           </ion-card>
         </ng-container>
       </ion-card>
-      <ng-container *ngIf="coldcallForm.controls.clientinterest.value === 'Yes'">
+      <ng-container *ngIf="coldcallForm.controls.clientInterested.value === true">
         <ion-card class="shadow-all">
           <ion-row class="cardheaderalignment">
             <h6>Interested Projects</h6>
           </ion-row>
           <ion-row>
-            <ion-chip color="primary" *ngFor="let project of coldcallForm.controls.enterProject.value">
-              <ion-label>{{project}}</ion-label>
+            <ion-chip color="primary" *ngFor="let project of selectedProperties">
+              <ion-label>{{project.propertyName}}</ion-label>
               <!-- <ion-icon name="close" (click)="removeproject(project)"></ion-icon> -->
             </ion-chip>
-            </ion-row>
-            <ion-row>
-            <ion-item style="width: 50%;">
-              <ion-select  formControlName="enterProject" placeholder="Add Projects" [multiple]="true">
-                <ion-select-option value="Lake View">Lake View</ion-select-option>
-                <ion-select-option value="Sky View">Sky View</ion-select-option>
-                <ion-select-option value="AdobeView">AdobeView</ion-select-option>
-                <ion-select-option value="sumadura">sumadura</ion-select-option>
-                <ion-select-option value="Ace avani">Ace avani</ion-select-option>
-                <ion-select-option value="Ace">Ace</ion-select-option>
-              </ion-select>
-            </ion-item>
           </ion-row>
+          <ion-row>
+            <ion-input [(ngModel)]="searchTerm" (ionInput)="filterProperties($event)" placeholder="Enter property name"
+              debounce="300">
+            </ion-input>
+          </ion-row>
+
+          <ion-list *ngIf="filteredProperties.length > 0 && displayDropdown">
+            <ion-item *ngFor="let property of filteredProperties" (click)="selectProperty(property)">
+              <ion-label>
+                <h2>{{ property.propertyName }}</h2>
+              </ion-label>
+            </ion-item>
+          </ion-list>
           <!-- <ion-row>
             <ion-list>
               <ion-item>
@@ -177,7 +183,8 @@
             <ion-row>
               <ion-col size="6" *ngFor="let leadStatus of leadStatusList;">
                 <ion-item>
-                  <ion-radio [value]="leadStatus.name" justify="start" labelPlacement="end">{{ leadStatus.name }}</ion-radio>
+                  <ion-radio [value]="leadStatus.name" justify="start" labelPlacement="end">{{ leadStatus.name }}
+                  </ion-radio>
                 </ion-item>
               </ion-col>
               <small class="colorred" *ngIf="f['leadStatus'].touched && f['leadStatus'].errors">
@@ -194,7 +201,8 @@
             <ion-row>
               <ion-col size="6" *ngFor="let planitem of plantoDotypes;">
                 <ion-item>
-                  <ion-radio [value]="planitem.name" justify="start" labelPlacement="end">{{ planitem.name }}</ion-radio>
+                  <ion-radio [value]="planitem.name" justify="start" labelPlacement="end">{{ planitem.name }}
+                  </ion-radio>
                 </ion-item>
               </ion-col>
               <small class="colorred" *ngIf="f['plantodo'].touched && f['plantodo'].errors">
@@ -211,14 +219,15 @@
             <ion-col size="8" class="content-css" style="margin: auto;">
               <ion-item>
                 <ion-select formControlName="leadSource" label="Select" label-placement="floating">
-                  <ion-select-option *ngFor="let source of sources" [value]="source.value">{{source.name}}</ion-select-option>
+                  <ion-select-option *ngFor="let source of sources" [value]="source.value">{{source.name}}
+                  </ion-select-option>
                 </ion-select>
               </ion-item>
               <small class="colorred" *ngIf="f['leadSource'].touched && f['leadSource'].errors">
                 <span>Please Select the Required Option*</span>
               </small>
             </ion-col>
-           
+
           </ion-row>
         </ion-card>
         <ion-card class="shadow-all">
@@ -242,7 +251,7 @@
                 <span>Please Select the Required Option*</span>
               </small>
             </ion-col>
-           
+
           </ion-row>
         </ion-card>
       </ng-container>
@@ -250,11 +259,11 @@
         <ion-row class="cardheaderalignment">
           <h6>Cross Segment Leads</h6>
         </ion-row>
-        <ion-radio-group formControlName="crosssegmentleads">
+        <ion-radio-group formControlName="crossSegmentLeads">
           <ion-row>
             <ion-col size="6" *ngFor="let options of yesOrnoOptions;">
               <ion-item>
-                <ion-radio [value]="options" justify="start" labelPlacement="end">{{ options }}</ion-radio>
+                <ion-radio [value]="options.value" justify="start" labelPlacement="end">{{ options.name }}</ion-radio>
               </ion-item>
             </ion-col>
           </ion-row>
@@ -281,13 +290,14 @@
       <ion-col>
         <ion-item>
           <ion-label position="floating">Enter Mobile Number</ion-label>
-          <ion-input type="tel" [(ngModel)]="mobileNumber" maxlength="10" minlength="10"></ion-input>       
+          <ion-input type="tel" [(ngModel)]="mobileNumber" maxlength="10" minlength="10"></ion-input>
         </ion-item>
       </ion-col>
-      <ion-col *ngIf="mobileNumber !== '' && mobileNumber.length == 10" size="3" class="ion-text-right ion-align-self-center">
+      <ion-col *ngIf="mobileNumber !== '' && mobileNumber.length == 10" size="3"
+        class="ion-text-right ion-align-self-center">
         <ion-icon (click)="callNow()" name="call" color="success" size="large" disabled></ion-icon>
       </ion-col>
     </ion-row>
-   
+
   </ng-container>
 </ion-content>

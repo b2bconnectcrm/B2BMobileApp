@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Router } from '@angular/router';
 import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 import { debounceTime } from 'rxjs';
+import { Property } from 'src/app/model/proprty.model';
 import { CallingService } from 'src/app/services/calling.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { CallingService } from 'src/app/services/calling.service';
   styleUrls: ['./cold-call.page.scss'],
 })
 export class ColdCallPage implements OnInit {
-  
+
   notLookingOptions: any = [{
     "label": "Irrelevant Location",
     "value": "IrrelevantLocation"
@@ -28,70 +29,82 @@ export class ColdCallPage implements OnInit {
     "label": "All ready purchased",
     "value": "Allreadypurchased"
   }
-  ,
+    ,
   {
     "label": "Already in touch with Company Employee",
     "value": "AlreadyintouchwithCompanyEmployee"
   }
-  
+
   ];
-  selectedProjects: any = [];
+  allProperties: Property[] = [];
+  filteredProperties: Property[] = [];
+  selectedProperties: Property[] = [];
+  propertiesMap = new Map<number, Property>();
+  searchTerm: string = '';
+  displayDropdown: boolean = false;
   enterProject: any = '';
   coldcallForm: FormGroup | any;
   callButtonEnabled: boolean = true;
-  yesOrnoOptions: any = ['Yes', 'No'];
-
-  mobileNumber: any='';
-  selectedPropertyType: any;
-  sources: any=[
+  yesOrnoOptions: any = [
     {
-    "value":"Company_Lead",
-    "name": "Company Lead"
-  },
-  {
-    "value":"Own_Lead",
-    "name": "Own Lead"
-  },
-  {
-    "value":"Shared_Lead",
-    "name": "Shared Lead"
-  },
-  {
-    "value":"Cold_Call_Lead",
-    "name": "Cold Call Lead"
-  },
-  {
-    "value":"CP_Lead",
-    "name": "CP Lead"
-  }
+      name: 'Yes',
+      value: true
+    },
+    {
+      name: 'No',
+      value: false
+    }];
+
+  mobileNumber: any = '';
+  selectedPropertyType: any;
+  sources: any = [
+    {
+      "value": "Company_Lead",
+      "name": "Company Lead"
+    },
+    {
+      "value": "Own_Lead",
+      "name": "Own Lead"
+    },
+    {
+      "value": "Shared_Lead",
+      "name": "Shared Lead"
+    },
+    {
+      "value": "Cold_Call_Lead",
+      "name": "Cold Call Lead"
+    },
+    {
+      "value": "CP_Lead",
+      "name": "CP Lead"
+    }
 
   ]
   constructor(private callNumber: CallNumber, private fb: FormBuilder, private router: Router,
-     private callingService: CallingService) {
+    private callingService: CallingService) {
 
     this.coldcallForm = this.fb.group({
       firstName: ["", Validators.required],
       email: ["", [Validators.required, Validators.email]],
-      mobile: ["", Validators.required],     
+      mobile: ["", Validators.required],
       comments: [""],
       notINterestedStatus: [""],
-      properties:[null],
+      properties: [null],
       propertyType: [""],
       subPropertyType: [""],
       salesPipeline: [""],
       leadSource: [""],
       crossSegments: [""],
-      leadStatus:[""],
-      plantodo: [""],        
-      clientinterest: [""],
+      leadStatus: [""],
+      plantodo: [""],
+      clientInterested: [""],
       crosssegmentleads: [""],
       propertyLead: [false],
       enterProject: [""],
-      propertyLeadOptions: [''],      
-      nointerestedVal: [""]
+      propertyLeadOptions: [''],
     });
     this.coldcallForm.updateValueAndValidity();
-   }
+  }
 
   leadStatusList: any = [
     {
@@ -143,14 +156,14 @@ export class ColdCallPage implements OnInit {
 
   ngOnInit() {
     this.getAllProjects();
-  }  
-  
+  }
+
   callNow() {
     if (this.mobileNumber && this.mobileNumber.length == 10) {
       this.callNumber.callNumber(this.mobileNumber, true)
         .then((res: any) => {
           this.coldcallForm.patchValue({
-            mobile : this.mobileNumber
+            mobile: this.mobileNumber
           })
           setTimeout(() => {
             this.callButtonEnabled = false;
@@ -158,7 +171,7 @@ export class ColdCallPage implements OnInit {
           console.log('Dialing', res);
         })
         .catch((err: any) => {
-          this.callButtonEnabled = false;
+          // this.callButtonEnabled = false;
           console.log('Error launching dialer', err)
         });
     } else {
@@ -170,75 +183,105 @@ export class ColdCallPage implements OnInit {
   getAllProjects() {
     console.log(this.coldcallForm.value)
     this.callingService.getAllPropeties().subscribe((data: any) => {
-      this.selectedProjects = data;
-      this.coldcallForm.patchValue({
-        properties:this.selectedProjects
-      })
-      console.dir(this.selectedProjects);
+      this.allProperties = data;
+      // this.coldcallForm.patchValue({
+      //   properties:this.filteredProperties
+      // })
+      console.dir(this.filteredProperties);
     }, (error: any) => {
       console.log("error")
     })
   }
 
-  onclientinterestchange(ev: any) { 
-    if(ev.target.value == "Yes"){    
+  filterProperties(event: any) {
+    const searchValue = event.target.value.toLowerCase();
+    if (searchValue) {
+      this.filteredProperties = this.allProperties.filter(property =>
+        property?.propertyName?.toLowerCase().includes(searchValue)
+      );
+      if (this.filteredProperties.length > 0) {
+        this.displayDropdown = true;
+      }
+    } else {
+      this.filteredProperties = []; // Clear the dropdown if no search term
+      this.displayDropdown = false;
+    }
+  }
+
+  selectProperty(property: Property) {
+    //this.selectedProperties = this.selectedProperties.filter((x: any) => x.id != property?.id)
+    this.searchTerm = '';
+    if (!this.propertiesMap.has(property.id)) {
+      this.propertiesMap.set(property.id, property)
+      this.selectedProperties.push(property);
+    }
+    this.displayDropdown = false;
+
+    console.dir(this.selectedProperties);
+  }
+
+
+  onclientinterestchange(ev: any) {
+    if (ev.target.value == "true") {
       let v = Validators.required;
       this.SetValidations(v)
-    }else{      
+    } else {
       this.ClearValidation();
     }
     this.updateFormGroup();
   }
- 
-  SetValidations(condition:any){
+
+  SetValidations(condition: any) {
     this.coldcallForm.get('propertyType').setValidators(condition);
     this.coldcallForm.get('subPropertyType').setValidators(condition);
     this.coldcallForm.get('leadStatus').setValidators(condition);
     this.coldcallForm.get('plantodo').setValidators(condition);
-    this.coldcallForm.get('leadSource').setValidators(condition);   
-    this.coldcallForm.get('salesPipeline').setValidators(condition);    
+    this.coldcallForm.get('leadSource').setValidators(condition);
+    this.coldcallForm.get('salesPipeline').setValidators(condition);
     this.updateFormGroup();
   }
-  ClearValidation(){
+  ClearValidation() {
     this.coldcallForm.get('propertyType').clearValidators();
     this.coldcallForm.get('subPropertyType').clearValidators();
     this.coldcallForm.get('leadStatus').clearValidators();
     this.coldcallForm.get('plantodo').clearValidators();
-    this.coldcallForm.get('leadSource').clearValidators();   
-    this.coldcallForm.get('salesPipeline').clearValidators();   
+    this.coldcallForm.get('leadSource').clearValidators();
+    this.coldcallForm.get('salesPipeline').clearValidators();
     this.coldcallForm.patchValue({
-      propertyType:"",
-      subPropertyType:"",
-      leadStatus:"",
-      plantodo:"",
-      salesPipeline:""           
+      propertyType: "",
+      subPropertyType: "",
+      leadStatus: "",
+      plantodo: "",
+      salesPipeline: ""
     });
     this.updateFormGroup();
   }
-  updateFormGroup(){
+  updateFormGroup() {
     this.coldcallForm.updateValueAndValidity();
   }
-  
+
   addProject() {
-    this.selectedProjects.push(this.enterProject);
+    this.filteredProperties.push(this.enterProject);
     this.enterProject = '';
   }
   removeproject(val: any) {
-    this.selectedProjects = this.selectedProjects.filter((x: any) => x != val)
-  } 
+    this.filteredProperties = this.filteredProperties.filter((x: any) => x != val)
+  }
   get f(): { [key: string]: AbstractControl } {
     return this.coldcallForm.controls;
   }
-  onSelectPropertyChange(event: any){
+  onSelectPropertyChange(event: any) {
     console.log('Current value:', JSON.stringify(event.target.value));
-    this.selectedPropertyType= event.target.value;
-  }  
-  
+    this.selectedPropertyType = event.target.value;
+  }
+
   saveLeadDetails() {
+    this.coldcallForm.patchValue({
+      properties: this.selectedProperties
+    });
     console.log(this.coldcallForm)
     console.log(this.coldcallForm.value);
     this.coldcallForm.markAllAsTouched();
-    this.updateFormGroup();
     this.callingService.createLeadDetails(this.coldcallForm.value).subscribe((data: any) => {
       console.log("success")
       this.router.navigateByUrl("/home");
