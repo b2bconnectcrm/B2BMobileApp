@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
   environmentName: 'Dev',
-  apiUrl: 'http://51.8.202.35:9000/'
+  apiUrl: 'http://51.8.202.35:9000/',
+  fileUploadApiPath:'file/upload-remotefile',
+  fileDisplayUrlApiPath:'file/remote_image/',
 };
 
 /*

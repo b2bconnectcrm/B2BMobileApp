@@ -1,104 +1,177 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button  defaultHref="/home"></ion-back-button>
+      <ion-back-button defaultHref="/deals"></ion-back-button>
     </ion-buttons>
-    <ion-title> Add Deals</ion-title>
+    <ion-title>{{selectedId?.val !=0 ? 'Edit' : 'Add'}} Deals</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <form name="f" [formGroup]="dealsForm" class="form">
-  <ion-card class="shadow-all">
-  <div class="ion-padding">
-    <ion-list>
-      <ion-item>
-        <ion-input label="Deal Name *" formControlName="dealName" labelPlacement="floating"></ion-input>
-      </ion-item>
-      <small class="colorred" *ngIf="f['dealName'].touched && f['dealName'].errors">
-        <span>Required*</span>
-      </small>
-      <ion-item>
-        <ion-input label="Client Name *" formControlName="clientName"  labelPlacement="floating"></ion-input>     
-      </ion-item>    
-      <small class="colorred" *ngIf="f['clientName'].touched && f['clientName'].errors">
-        <span>Required*</span>
-      </small>
-      <ion-item>
-        <ion-input label="Account Name *" formControlName="accountName" labelPlacement="floating"></ion-input>
-     </ion-item>    
-      <ng-container>
-      <ion-item>
-        <ion-select label="PipeLine" formControlName="salesPipeline"  label-placement="floating" >
-          <ion-select-option *ngFor="let items of pipelineValues" [value]="items.value">{{items.displayValue}}</ion-select-option> 
-        </ion-select>       
-      </ion-item>  
-      <small class="colorred" *ngIf="f['salesPipeline'].touched && f['salesPipeline'].errors">
-        <span>Required*</span>
-      </small>
-    </ng-container>
-    <ng-container>
-      <ion-item>
-        <ion-select label="Stage" formControlName="stage"  label-placement="floating" >
-          <ion-select-option *ngFor="let items of stagedValues" [value]="items.value">{{items.displayValue}}</ion-select-option> 
-        </ion-select>      
-      </ion-item> 
-      <small class="colorred" *ngIf="f['stage'].touched && f['stage'].errors">
-        <span>Required*</span>
-      </small>
-    </ng-container>          
-      <ion-item>
-        <ion-input type="number"  formControlName="amount" label="Amount" labelPlacement="floating" value="35654"></ion-input>       
-      </ion-item>
-      <small class="colorred" *ngIf="f['amount'].touched && f['amount'].errors">
-        <span>Required*</span>
-      </small>
-         <ion-item>
-        <ion-input type="number" formControlName="commissionPercent" label="Commission percentage" labelPlacement="floating"></ion-input>    
-      </ion-item>
-      <small class="colorred" *ngIf="f['commissionPercent'].touched && f['commissionPercent'].errors">
-        <span>Required*</span>
-      </small>    
-      <ion-item>
-        <ion-input type="date" label="Closing Date"   formControlName="closingDate" labelPlacement="floating"></ion-input>
-      </ion-item>    
-      <small class="colorred" *ngIf="f['closingDate'].touched && f['closingDate'].errors">
-        <span>Required*</span>
-      </small> 
-      <ion-item>
-        <ion-input type="tel" maxlength="10" minlength="10" label="Phone" formControlName="phone" labelPlacement="floating"></ion-input>        
-      </ion-item> 
-      <small class="colorred" *ngIf="f['phone'].touched && f['phone'].errors">
-        <span>Required*</span>
-      </small>      
-      <ion-item>
-        <ion-select label="Project Type"  formControlName="projectType" label-placement="floating">
-          <ion-select-option *ngFor="let items of projectTypeValues" [value]="items.value">{{items.displayValue}}</ion-select-option>         
-        </ion-select>
-      </ion-item>
-      <small class="colorred" *ngIf="f['projectType'].touched && f['projectType'].errors">
-        <span>Required*</span>
-      </small>
-      <ion-item>
-        <ion-input label="PAN Card No" formControlName="pancardNumber" labelPlacement="floating"></ion-input>        
-      </ion-item>
-      <small class="colorred" *ngIf="f['pancardNumber'].touched && f['pancardNumber'].errors">
-        <span>Required*</span>
-      </small> 
-      <ion-item>
-        <ion-select label="Unit Status"  formControlName="unitStatus" label-placement="floating">
-          <ion-select-option *ngFor="let items of UnitStatusValues" [value]="items.value">{{items.displayValue}}</ion-select-option>         
-        </ion-select>
-      </ion-item> 
-      <small class="colorred" *ngIf="f['unitStatus'].touched && f['unitStatus'].errors">
-        <span>Required*</span>
-      </small>
-    </ion-list>
-    
-  </div>
-</ion-card>
-</form>
-  <ion-row class="ion-padding buttonPosition">
-    <!-- [disabled]="this.dealsForm.invalid" -->
-    <ion-button  (click)="saveDetails()"  [disabled]="this.dealsForm.invalid" size="small">SUBMIT</ion-button>
-  </ion-row>
+    <ion-card class="shadow-all">
+      <div class="ion-padding">
+        <ion-list>
+          <ion-item>
+            <ion-input label="Deal Name *" formControlName="dealName" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <small class="colorred" *ngIf="f['dealName'].touched && f['dealName'].errors">
+            <span>Required*</span>
+          </small>
+          <ion-item>
+            <ion-input label="Deal Owner *" formControlName="dealOwner" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <small class="colorred" *ngIf="f['dealOwner'].touched && f['dealOwner'].errors">
+            <span>Required*</span>
+          </small>
+          <ng-container>
+            <ion-item>
+              <ion-select label="LeadId" formControlName="leadId" label-placement="floating">
+                <ion-select-option *ngFor="let items of leadsData"
+                  [value]="items.leadId">{{items.firstName}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <small class="colorred" *ngIf="f['leadId'].touched && f['leadId'].errors">
+              <span>Required*</span>
+            </small>
+          </ng-container>
+          <ion-item>
+            <ion-input label="Client Name *" formControlName="clientName" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <small class="colorred" *ngIf="f['clientName'].touched && f['clientName'].errors">
+            <span>Required*</span>
+          </small>
+          <ion-item>
+            <ion-input label="Account Name *" formControlName="accountName" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <small class="colorred" *ngIf="f['accountName'].touched && f['accountName'].errors">
+            <span>Required*</span>
+          </small>
+          <ion-item>
+            <ion-input label="Referred By*" formControlName="referredBy" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <small class="colorred" *ngIf="f['referredBy'].touched && f['referredBy'].errors">
+            <span>Required*</span>
+          </small>
+          <ion-item>
+            <ion-input label="Forcast Category *" formControlName="forcastCategory"
+              labelPlacement="floating"></ion-input>
+          </ion-item>
+          <small class="colorred" *ngIf="f['forcastCategory'].touched && f['forcastCategory'].errors">
+            <span>Required*</span>
+          </small>
+
+          <ng-container>
+            <ion-item>
+              <ion-select label="PipeLine" formControlName="salesPipeline" label-placement="floating">
+                <ion-select-option *ngFor="let items of pipelineValues"
+                  [value]="items.value">{{items.displayValue}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <small class="colorred" *ngIf="f['salesPipeline'].touched && f['salesPipeline'].errors">
+              <span>Required*</span>
+            </small>
+          </ng-container>
+          <ng-container>
+            <ion-item>
+              <ion-select label="Stage" formControlName="stage" label-placement="floating">
+                <ion-select-option *ngFor="let items of stagedValues"
+                  [value]="items.value">{{items.displayValue}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <small class="colorred" *ngIf="f['stage'].touched && f['stage'].errors">
+              <span>Required*</span>
+            </small>
+          </ng-container>
+          <ion-item>
+            <ion-input type="number" formControlName="amount" label="Amount" labelPlacement="floating"
+              value="35654"></ion-input>
+          </ion-item>
+          <small class="colorred" *ngIf="f['amount'].touched && f['amount'].errors">
+            <span>Required*</span>
+          </small>
+          <ion-item>
+            <ion-input type="number" formControlName="commissionPercent" label="Commission percentage"
+              labelPlacement="floating"></ion-input>
+          </ion-item>
+          <small class="colorred" *ngIf="f['commissionPercent'].touched && f['commissionPercent'].errors">
+            <span>Required*</span>
+          </small>
+          <ion-item>
+            <ion-input type="date" label="Closing Date" formControlName="closingDate"></ion-input>
+          </ion-item>
+          <small class="colorred" *ngIf="f['closingDate'].touched && f['closingDate'].errors">
+            <span>Required*</span>
+          </small>
+          <ion-item>
+            <ion-input type="tel" maxlength="10" minlength="10" label="Phone" formControlName="phone"
+              labelPlacement="floating"></ion-input>
+          </ion-item>
+          <small class="colorred" *ngIf="f['phone'].touched && f['phone'].errors">
+            <span>Required*</span>
+          </small>
+          <ion-item>
+            <ion-select label="Project Type" formControlName="projectType" label-placement="floating">
+              <ion-select-option *ngFor="let items of projectTypeValues"
+                [value]="items.value">{{items.displayValue}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <small class="colorred" *ngIf="f['projectType'].touched && f['projectType'].errors">
+            <span>Required*</span>
+          </small>
+          <ion-item>
+            <ion-input label="PAN Card No" formControlName="pancardNumber" labelPlacement="floating"></ion-input>
+          </ion-item>
+          <small class="colorred" *ngIf="f['pancardNumber'].touched && f['pancardNumber'].errors">
+            <span>Required*</span>
+          </small>
+          <ion-item>
+            <ion-select label="Unit Status" formControlName="unitStatus" label-placement="floating">
+              <ion-select-option *ngFor="let items of UnitStatusValues"
+                [value]="items.value">{{items.displayValue}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <small class="colorred" *ngIf="f['unitStatus'].touched && f['unitStatus'].errors">
+            <span>Required*</span>
+          </small>
+          <ion-item>
+          <ion-row>
+            <ion-col size="9">
+            <ion-input label="Pan card" lang="en" type="file"
+                            (change)="onPancardFileSelected($event)" ></ion-input>
+            </ion-col>
+            <ion-col size="3">
+              <ion-button expand="block" [disabled]="!selectedPancardFile" type="button" (click)="uploadPancardImage()"
+              size="small">Upload</ion-button>
+            </ion-col>
+            <ion-col size="12">
+              <img [src]="pancardUrl" height="200">
+            </ion-col>
+          </ion-row>
+          <ion-row>          
+          </ion-row>
+        </ion-item>   
+        <ion-item>
+          <ion-row>
+            <ion-col size="9">
+            <ion-input label="Aadhar" lang="en" type="file"
+                            (change)="onAadharFileSelected($event)" ></ion-input>
+            </ion-col>
+            <ion-col size="3">
+              <ion-button expand="block" [disabled]="!selectedAadharFile" type="button" (click)="uploadAadharImage()"
+              size="small">Upload</ion-button>
+            </ion-col>
+            <ion-col size="12">
+              <img [src]="aadharUrl" height="200">
+            </ion-col>
+          </ion-row>
+          <ion-row>          
+          </ion-row>
+        </ion-item>        
+        </ion-list>
+      </div>
+    </ion-card>
+  </form>
+    <ion-button (click)="saveDetails()" expand="block" class="btn-background-color ion-btn-margin" [disabled]="this.dealsForm.invalid"
+      size="small">{{selectedId?.val !=0 ? 'UPDATE' : 'SUBMIT'}}</ion-button>
+  
 </ion-content>

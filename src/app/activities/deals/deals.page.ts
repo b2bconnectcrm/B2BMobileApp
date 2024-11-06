@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { DealsService } from 'src/app/services/deals.service';
 
 @Component({
@@ -125,7 +127,7 @@ dummyresponse:any=[
   }
 ];
 dealsData:any;
-  constructor(private deslaservice:DealsService) { }
+  constructor(private router: Router,private deslaservice:DealsService,private navController:NavController) { }
 
   ngOnInit() {
     this.getDetails()
@@ -138,6 +140,19 @@ dealsData:any;
       // this.router.navigateByUrl("/home");
     }, (error: any) => {
       console.log("error")
+    })
+  }
+  addDeals(val:any){ 
+    console.log(val)   
+    this.router.navigate(['/add-deals'], { queryParams: { val } })
+  }
+  edit(val:any){
+    console.log(val)
+    this.router.navigate(['/add-deals'], { queryParams: { val } })   
+  }
+  delete(val:any){
+    this.deslaservice.deleteDeals(val).subscribe(res=>{
+      this.getDetails();
     })
   }
 }
