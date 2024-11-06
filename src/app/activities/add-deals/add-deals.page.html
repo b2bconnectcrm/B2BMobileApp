@@ -146,6 +146,11 @@
             <ion-col size="12">
               <img [src]="pancardUrl" height="200">
             </ion-col>
+            <ion-col>
+              <div class="col-md-6 px-md-1" *ngIf="!selectedPancardFile && this.dealsEditData?.pancardFilePath">
+                <img src="{{getPancardImagePath(this.dealsEditData?.pancardFilePath)}}" height="200"> <br />
+            </div>
+            </ion-col>
           </ion-row>
           <ion-row>          
           </ion-row>

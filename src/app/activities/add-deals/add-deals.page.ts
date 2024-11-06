@@ -41,6 +41,7 @@ export class AddDealsPage implements OnInit {
   pancardUrl: any | ArrayBuffer; 
   pancardFileUploaded: boolean = false;
   imageData: any;
+  dealsEditData:any;
   constructor( private _http: HttpClient,private leadsService:LeadsService ,private activateRouter: ActivatedRoute,private router: Router, private fb: UntypedFormBuilder,private deslaservice:DealsService) { 
     this.activateRouter.queryParams.subscribe(res => {
       this.selectedId = res;     
@@ -71,8 +72,7 @@ export class AddDealsPage implements OnInit {
     });    
     if(this.selectedId.val !=0){
       this.deslaservice.getDealsById(this.selectedId.val).subscribe(res=>{ 
-        this.pancardUrl = res?.pancardFilePath;    
-        console.log(this.pancardUrl)
+        this.dealsEditData = res;     
         this.dealsForm = this.fb.group({
           id: res.id,
           dealName: res.dealName,
@@ -112,7 +112,7 @@ export class AddDealsPage implements OnInit {
     if(this.selectedId.val ==0) {
       this.deslaservice.createDeals(this.dealsForm.value).subscribe((data: any) => {
         console.log("success")
-        this.selectedPancardFile=null;
+        // this.selectedPancardFile=null;
         this.router.navigateByUrl("/deals");
       }, (error: any) => {
         console.log("error")
@@ -155,7 +155,7 @@ export class AddDealsPage implements OnInit {
             console.dir(this.imageData?.path);
             console.dir(response?.imageName);
             this.dealsForm.patchValue({
-              pancardFilePath: this.imageData.path
+              pancardFilePath: this.imageData.imageName
             })
           
           },
@@ -168,4 +168,7 @@ export class AddDealsPage implements OnInit {
       
     }
   } 
+  getPancardImagePath(image: string) {    
+    return AppConstants.GET_REMOTE_IMAGE_PATH(image);
+  }
 }

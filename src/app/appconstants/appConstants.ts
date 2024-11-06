@@ -2,11 +2,15 @@ import { environment } from "src/environments/environment";
 
 const baseUrl = `${environment.apiUrl}`;
 export class AppConstants {   
+    
     public static fileUploadApiPath = `${environment.fileUploadApiPath}`
+
     public static fileDisplayUrlApiPath = `${environment.fileDisplayUrlApiPath}`;
+
     public static uploadUrl = `${baseUrl}` + this.fileUploadApiPath;
+
     public static GET_REMOTE_IMAGE_PATH(remoteFileName: string) {
-        return '${baseUrl}' + this.fileDisplayUrlApiPath + remoteFileName;
+        return `${baseUrl}` + this.fileDisplayUrlApiPath + remoteFileName;
     }
     public static POST_DO_LOGIN() {
         return `${baseUrl}` + "user/login";
