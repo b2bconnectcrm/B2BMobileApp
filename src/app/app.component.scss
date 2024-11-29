@@ -121,3 +121,15 @@ ion-item.selected {
 .profile-ion-icon {
   font-size: 64px;
 }
+.background-color {
+  background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important;
+}
+// .card-background {
+//   background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important;
+//     color: white;
+// }
+ion-card {
+  margin: 16px;
+  background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important;
+  color: white;
+}

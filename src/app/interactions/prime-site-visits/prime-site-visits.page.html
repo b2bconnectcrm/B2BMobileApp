@@ -56,22 +56,22 @@
 
   <ion-searchbar  placeholder="Search by project/Client Name" [debounce]="1000" (ionInput)="handleInput($event)"></ion-searchbar>
  
-  <ion-card *ngFor="let item of results">
-    <ion-grid (click)="gotoView()">
+  <ion-card *ngFor="let item of results" class="card-background">
+    <ion-grid (click)="gotoView(item?.id)">
       <ion-row>
         <ion-col size="9">
           <ion-card-content>
-            <h2>{{item.propertyName}}</h2>
+            <h2>{{item?.propertyName}}</h2>
             <p>
-              {{item.date}}
+              {{item?.date}}
             </p>
             <p>
-              Client Name: {{item.clientName}}
+              Client Name: {{item?.clientName}}
             </p>
             <p>
-              ID: {{item.id}}            </p>
+              Status: {{item?.status}}            </p>
             <p>
-              Mobile: {{item.mobile}}
+              Mobile: {{item?.mobile}}
             </p>
           </ion-card-content>
         </ion-col>

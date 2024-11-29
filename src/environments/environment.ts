@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   environmentName: 'Dev',
-  apiUrl: 'http://51.8.202.35:9000/',
+  apiUrl: 'https://dev-api.b2bwebapp.com/',
   fileUploadApiPath:'file/upload-remotefile',
   fileDisplayUrlApiPath:'file/remote_image/',
 };

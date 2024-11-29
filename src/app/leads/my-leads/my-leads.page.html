@@ -55,15 +55,36 @@
     </ng-template>
   </ion-modal>
 
-  <ion-card *ngFor="let item of results" (click)="gotoViewLeadDetails()" >
+  <ion-card class="card-background" *ngFor="let item of results">
     <ion-grid>
       <ion-row>
+        <ion-col size="9">
+          <ion-card-content>
+            <h2>{{item?.leadId}}</h2>
+            <p>
+              {{item?.date}}
+            </p>
+            <p>
+              Lead Name: {{item.firstName}}  {{item.lastName}}
+            </p>
+            <p>
+              Status: {{item.leadStatus}}          </p>
+            <p>
+              Mobile: {{item?.mobile}}
+            </p>
+          </ion-card-content>
+        </ion-col>
+        <ion-col size="3" class="ion-text-right ion-align-self-center">
+          <ion-icon name="call" color="success" size="large"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-row>
         <ion-col size="6" class="content-css">
-           <p><ion-badge slot="start" color="success">New</ion-badge> {{item.id}} </p>
+           <p><ion-badge slot="start" color="success">{{item.leadId}}</ion-badge></p>
         </ion-col>
         <ion-col size="4" class="sub-content-css">
-          <p>Next Interaction </p>
-          <p> {{item.date}} </p>
+          <p>Company</p>
+          <p> {{item.industry}} </p>
         </ion-col>
         <ion-col size="2" class="sub-content-css" style="align-content:center ;" >
           <ion-icon name="heart" color="primary" size="large"></ion-icon>
@@ -71,18 +92,17 @@
       </ion-row>
       <ion-row>
         <ion-col size="6" class="content-css">
-          <p> {{item.clientName}} </p>
+          <p> {{item.firstName}}  {{item.lastName}}</p>
           <p style="color: rgb(105, 219, 105);"> {{item.propertyName}} </p>
         </ion-col>
         <ion-col size="4" class="sub-content-css">
-          <p>Last Interaction </p>
-          <p> {{item.date}} </p>
+          <p>Status</p>
+          <p color="success"> {{item.leadStatus}}</p>
         </ion-col>
-        <ion-col size="2" class="sub-content-css" style="align-content:center ;" >
-         
+        <ion-col size="2" class="sub-content-css" style="align-content:center ;" >         
           <ion-icon name="call" color="success" size="large"></ion-icon>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
     </ion-grid>
   </ion-card>
   

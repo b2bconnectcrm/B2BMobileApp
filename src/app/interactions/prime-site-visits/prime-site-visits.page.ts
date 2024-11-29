@@ -2,46 +2,33 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonDatetime } from '@ionic/angular';
 import { empty } from 'rxjs';
+import { PrimeSiteService } from 'src/app/services/primrvisites.service';
 
 @Component({
   selector: 'app-prime-site-visits',
   templateUrl: './prime-site-visits.page.html',
   styleUrls: ['./prime-site-visits.page.scss'],
 })
-export class PrimeSiteVisitsPage implements OnInit {
+export class PrimeSiteVisitsPage  {
 
-public  data: any = [
-    {
-      "propertyName": "Lake View Front, HYD",
-      "date":new Date(),
-      "clientName":"Dasu Magupalli",
-      "id":"5642349",
-      "mobile":"+91 8500053952"
-    },
-    {
-      "propertyName": "Lake View Front, HYD",
-      "date":new Date(),
-      "clientName":"Naveen kyama",
-      "id":"56429999",
-      "mobile":"+91 7877887877"
-    }
-  ];
+
   selectedDate!: string;
   selecteStartdDate!: string;
   isStartDatePickerOpen = false;
   isDatePickerOpen = false;
 
-  public results = [...this.data];
-  constructor(private router: Router) { }
+  results:any;
+  data:any;
+  constructor(private router: Router,private sitesservice:PrimeSiteService) { }
 
   ngOnInit() {
+    this.getdata();
   }
 
   handleInput(event: any) {
     const query = event.target.value.toLowerCase();
     this.results = this.data.filter((d: any) => (d.propertyName.toLowerCase().indexOf(query) || d.clientName.toLowerCase().indexOf(query) ) > -1);
-    console.dir( this.results )
-  }
+   }
 
   openDatePicker() {
     this.isDatePickerOpen = true;
@@ -80,9 +67,14 @@ public  data: any = [
   }
 
 
-  gotoView(){
-    this.router.navigateByUrl('/prime-site-visits/view-prime-sites')
+  gotoView(data:any){
+    this.router.navigate(['/prime-site-visits/view-prime-sites'], { queryParams: { data } })  
   }
-
+  getdata(){
+    this.sitesservice.getsites().subscribe(res=>{
+      this.data =  res;
+      this.results = res;
+    })
+  }
   
 }

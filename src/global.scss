@@ -59,7 +59,16 @@
     --background-activated: #fe5a1d;
     --background-focused: #fe5a1d;
 }
-
+.btn-background-color-green {
+    --border-radius: 10px;
+    --width: 60px;
+    --height: 60px;
+    padding: 0;
+    --background: rgb(52, 181, 52);
+    --background-hover: rgb(52, 181, 52);
+    --background-activated: #rgb(52, 181, 52);
+    --background-focused: rgb(52, 181, 52);
+}
 .ion-btn-margin {
     margin-top: 10px;
     margin-bottom: 20px;

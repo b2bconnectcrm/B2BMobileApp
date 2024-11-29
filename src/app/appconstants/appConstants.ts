@@ -53,6 +53,10 @@ export class AppConstants {
     public static GET_ALL_Leads_By_Id(id:any) {        
         return `${baseUrl}` + "lead/" + id;
     }
-
-    
+    public static GET_ALL_properties() {
+        return `${baseUrl}` + "property/all";
+    }
+    public static GET_ALL_Sites_By_Id(id:any) {
+        return `${baseUrl}` + "property/" + id;
+    }
 }

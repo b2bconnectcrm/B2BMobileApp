@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { LeadsService } from 'src/app/services/leads.service';
 @Component({
   selector: 'app-my-leads',
   templateUrl: './my-leads.page.html',
@@ -28,11 +29,11 @@ selectedDate!: string;
 selecteStartdDate!: string;
 isStartDatePickerOpen = false;
 isDatePickerOpen = false;
-
-public results = [...this.data];
-constructor(private navController:NavController) { }
+results:any
+constructor(private navController:NavController,private leadsService:LeadsService) { }
 
 ngOnInit() {
+  this.getLeadDetails();
 }
 
 openDatePicker() {
@@ -74,6 +75,11 @@ clearDate() {
 gotoViewLeadDetails(){
   this.navController.navigateRoot("/view-lead-details")
 }
-
+getLeadDetails(){
+  this.leadsService.getLeads().subscribe((res:any)=>{
+    this.data = res?.filter((x:any)=>x?.leadId !=null);
+    this.results = this.data;
+  })
+}
 }
 
